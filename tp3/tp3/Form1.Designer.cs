@@ -1,6 +1,6 @@
 ﻿namespace tp3
 {
-    partial class Form1
+    partial class FrmTransformationImage
     {
         /// <summary>
         /// Required designer variable.
@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmTransformationImage));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fichierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chargerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnNiveauDeGris = new System.Windows.Forms.Button();
             this.btnSepia = new System.Windows.Forms.Button();
             this.Transformation = new System.Windows.Forms.Label();
@@ -43,10 +43,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pboImageTransfo = new System.Windows.Forms.PictureBox();
+            this.btnStoper = new System.Windows.Forms.PictureBox();
+            this.btnAvancementContinue = new System.Windows.Forms.PictureBox();
+            this.btnAvancementUnique = new System.Windows.Forms.PictureBox();
+            this.btnAvencer = new System.Windows.Forms.PictureBox();
+            this.btnRetour = new System.Windows.Forms.PictureBox();
+            this.pboImageIni = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboImageTransfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnStoper)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAvancementContinue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAvancementUnique)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAvencer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRetour)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboImageIni)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -55,7 +66,7 @@
             this.fichierToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1021, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1133, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -80,15 +91,6 @@
             this.quitterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.quitterToolStripMenuItem.Text = "Quitter";
             this.quitterToolStripMenuItem.Click += new System.EventHandler(this.quitterToolStripMenuItem_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 110);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(501, 408);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
             // 
             // btnNiveauDeGris
             // 
@@ -146,7 +148,7 @@
             // 
             // txtAller
             // 
-            this.txtAller.Location = new System.Drawing.Point(733, 40);
+            this.txtAller.Location = new System.Drawing.Point(814, 49);
             this.txtAller.Name = "txtAller";
             this.txtAller.Size = new System.Drawing.Size(61, 20);
             this.txtAller.TabIndex = 9;
@@ -155,7 +157,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(671, 40);
+            this.label1.Location = new System.Drawing.Point(752, 49);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 15);
             this.label1.TabIndex = 10;
@@ -165,7 +167,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(860, 41);
+            this.label2.Location = new System.Drawing.Point(1017, 40);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 15);
             this.label2.TabIndex = 11;
@@ -176,27 +178,87 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.DarkRed;
-            this.label3.Location = new System.Drawing.Point(930, 41);
+            this.label3.Location = new System.Drawing.Point(1087, 40);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(15, 15);
             this.label3.TabIndex = 12;
             this.label3.Text = "0";
             // 
-            // pictureBox2
+            // pboImageTransfo
             // 
-            this.pictureBox2.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.pictureBox2.Location = new System.Drawing.Point(520, 110);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(501, 408);
-            this.pictureBox2.TabIndex = 13;
-            this.pictureBox2.TabStop = false;
+            this.pboImageTransfo.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.pboImageTransfo.Location = new System.Drawing.Point(572, 110);
+            this.pboImageTransfo.Name = "pboImageTransfo";
+            this.pboImageTransfo.Size = new System.Drawing.Size(561, 408);
+            this.pboImageTransfo.TabIndex = 13;
+            this.pboImageTransfo.TabStop = false;
             // 
-            // Form1
+            // btnStoper
+            // 
+            this.btnStoper.Image = ((System.Drawing.Image)(resources.GetObject("btnStoper.Image")));
+            this.btnStoper.Location = new System.Drawing.Point(708, 40);
+            this.btnStoper.Name = "btnStoper";
+            this.btnStoper.Size = new System.Drawing.Size(38, 46);
+            this.btnStoper.TabIndex = 14;
+            this.btnStoper.TabStop = false;
+            // 
+            // btnAvancementContinue
+            // 
+            this.btnAvancementContinue.Image = global::tp3.Properties.Resources.Control_End_Blue;
+            this.btnAvancementContinue.Location = new System.Drawing.Point(653, 40);
+            this.btnAvancementContinue.Name = "btnAvancementContinue";
+            this.btnAvancementContinue.Size = new System.Drawing.Size(38, 46);
+            this.btnAvancementContinue.TabIndex = 15;
+            this.btnAvancementContinue.TabStop = false;
+            // 
+            // btnAvancementUnique
+            // 
+            this.btnAvancementUnique.Image = ((System.Drawing.Image)(resources.GetObject("btnAvancementUnique.Image")));
+            this.btnAvancementUnique.Location = new System.Drawing.Point(600, 40);
+            this.btnAvancementUnique.Name = "btnAvancementUnique";
+            this.btnAvancementUnique.Size = new System.Drawing.Size(38, 46);
+            this.btnAvancementUnique.TabIndex = 16;
+            this.btnAvancementUnique.TabStop = false;
+            // 
+            // btnAvencer
+            // 
+            this.btnAvencer.Image = ((System.Drawing.Image)(resources.GetObject("btnAvencer.Image")));
+            this.btnAvencer.Location = new System.Drawing.Point(891, 39);
+            this.btnAvencer.Name = "btnAvencer";
+            this.btnAvencer.Size = new System.Drawing.Size(38, 46);
+            this.btnAvencer.TabIndex = 17;
+            this.btnAvencer.TabStop = false;
+            // 
+            // btnRetour
+            // 
+            this.btnRetour.Image = ((System.Drawing.Image)(resources.GetObject("btnRetour.Image")));
+            this.btnRetour.Location = new System.Drawing.Point(952, 40);
+            this.btnRetour.Name = "btnRetour";
+            this.btnRetour.Size = new System.Drawing.Size(38, 46);
+            this.btnRetour.TabIndex = 18;
+            this.btnRetour.TabStop = false;
+            // 
+            // pboImageIni
+            // 
+            this.pboImageIni.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.pboImageIni.Location = new System.Drawing.Point(0, 110);
+            this.pboImageIni.Name = "pboImageIni";
+            this.pboImageIni.Size = new System.Drawing.Size(561, 408);
+            this.pboImageIni.TabIndex = 19;
+            this.pboImageIni.TabStop = false;
+            // 
+            // FrmTransformationImage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1021, 530);
-            this.Controls.Add(this.pictureBox2);
+            this.ClientSize = new System.Drawing.Size(1133, 530);
+            this.Controls.Add(this.pboImageIni);
+            this.Controls.Add(this.btnRetour);
+            this.Controls.Add(this.btnAvencer);
+            this.Controls.Add(this.btnAvancementUnique);
+            this.Controls.Add(this.btnAvancementContinue);
+            this.Controls.Add(this.btnStoper);
+            this.Controls.Add(this.pboImageTransfo);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -207,16 +269,21 @@
             this.Controls.Add(this.Transformation);
             this.Controls.Add(this.btnSepia);
             this.Controls.Add(this.btnNiveauDeGris);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "FrmTransformationImage";
             this.Text = "Transformations bijectives sur des images (TP-3, 420-216-FX)";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboImageTransfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnStoper)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAvancementContinue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAvancementUnique)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAvencer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRetour)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboImageIni)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,7 +295,6 @@
         private System.Windows.Forms.ToolStripMenuItem fichierToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem chargerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quitterToolStripMenuItem;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnNiveauDeGris;
         private System.Windows.Forms.Button btnSepia;
         private System.Windows.Forms.Label Transformation;
@@ -239,7 +305,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pboImageTransfo;
+        private System.Windows.Forms.PictureBox btnStoper;
+        private System.Windows.Forms.PictureBox btnAvancementContinue;
+        private System.Windows.Forms.PictureBox btnAvancementUnique;
+        private System.Windows.Forms.PictureBox btnAvencer;
+        private System.Windows.Forms.PictureBox btnRetour;
+        private System.Windows.Forms.PictureBox pboImageIni;
     }
 }
 

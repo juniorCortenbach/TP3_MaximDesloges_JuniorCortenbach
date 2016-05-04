@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace tp3
 {
-    public partial class Form1 : Form
+    public partial class FrmTransformationImage : Form
     {
-        public Form1()
+        public FrmTransformationImage()
         {
             InitializeComponent();
         }
