@@ -50,6 +50,7 @@
             this.btnAvencer = new System.Windows.Forms.PictureBox();
             this.btnRetour = new System.Windows.Forms.PictureBox();
             this.pboImageIni = new System.Windows.Forms.PictureBox();
+            this.lblMessage = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboImageTransfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnStoper)).BeginInit();
@@ -84,6 +85,7 @@
             this.chargerToolStripMenuItem.Name = "chargerToolStripMenuItem";
             this.chargerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.chargerToolStripMenuItem.Text = "Charger image";
+            this.chargerToolStripMenuItem.Click += new System.EventHandler(this.chargerToolStripMenuItem_Click_1);
             // 
             // quitterToolStripMenuItem
             // 
@@ -141,7 +143,7 @@
             // 
             this.cmbTransformation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTransformation.FormattingEnabled = true;
-            this.cmbTransformation.Location = new System.Drawing.Point(321, 65);
+            this.cmbTransformation.Location = new System.Drawing.Point(321, 71);
             this.cmbTransformation.Name = "cmbTransformation";
             this.cmbTransformation.Size = new System.Drawing.Size(271, 21);
             this.cmbTransformation.TabIndex = 8;
@@ -204,7 +206,7 @@
             // 
             // btnAvancementContinue
             // 
-            this.btnAvancementContinue.Image = global::tp3.Properties.Resources.Control_End_Blue;
+            this.btnAvancementContinue.Image = ((System.Drawing.Image)(resources.GetObject("btnAvancementContinue.Image")));
             this.btnAvancementContinue.Location = new System.Drawing.Point(653, 40);
             this.btnAvancementContinue.Name = "btnAvancementContinue";
             this.btnAvancementContinue.Size = new System.Drawing.Size(38, 46);
@@ -247,11 +249,22 @@
             this.pboImageIni.TabIndex = 19;
             this.pboImageIni.TabStop = false;
             // 
+            // lblMessage
+            // 
+            this.lblMessage.AutoSize = true;
+            this.lblMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMessage.Location = new System.Drawing.Point(598, 77);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(255, 15);
+            this.lblMessage.TabIndex = 21;
+            this.lblMessage.Text = "llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll";
+            // 
             // FrmTransformationImage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1133, 530);
+            this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.pboImageIni);
             this.Controls.Add(this.btnRetour);
             this.Controls.Add(this.btnAvencer);
@@ -312,6 +325,7 @@
         private System.Windows.Forms.PictureBox btnAvencer;
         private System.Windows.Forms.PictureBox btnRetour;
         private System.Windows.Forms.PictureBox pboImageIni;
+        private System.Windows.Forms.Label lblMessage;
     }
 }
 
