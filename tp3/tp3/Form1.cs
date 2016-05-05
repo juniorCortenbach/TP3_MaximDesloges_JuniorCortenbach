@@ -42,7 +42,7 @@ namespace tp3
 
         }
 
-        private void chargerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void chargerToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
 
             string cheminFichier;
@@ -70,15 +70,12 @@ namespace tp3
 
         }
 
-        private void btnSepia_Click(object sender, EventArgs e)
+
+
+        private void btnSepia_Click_1(object sender, EventArgs e)
         {
             MessageBox.Show(this.matriceImage.GetLength(0).ToString());
             MessageBox.Show(this.matriceImage.GetLength(1).ToString());
-
-        }
-
-        private void chargerToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
 
         }
     }

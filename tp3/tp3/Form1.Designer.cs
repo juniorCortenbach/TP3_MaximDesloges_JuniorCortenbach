@@ -111,6 +111,7 @@
             this.btnSepia.TabIndex = 4;
             this.btnSepia.Text = "Sepia";
             this.btnSepia.UseVisualStyleBackColor = true;
+            this.btnSepia.Click += new System.EventHandler(this.btnSepia_Click_1);
             // 
             // Transformation
             // 
