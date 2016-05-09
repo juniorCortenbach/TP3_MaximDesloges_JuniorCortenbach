@@ -147,29 +147,16 @@ namespace tp3
 
         public Bitmap MiroirHorizontal(Bitmap imageChargee, int iteration)
         {
-            //Pour chaque pixel en largeur de l'image.
-            //for (int k = 0; k < this.Hauteur; k++)
-            //{
-            //Le dernier pixel en hauteur = le dernier pixel soustrait de l'itération
-            // (un pixel moins près de l'extrimité à chaque fois) 
-            int DernierPixel = this.Hauteur - iteration - 1;
-
-            //Pour chaque pixel en largeur de l'image.
+            int DernierPixel = this.Hauteur - 1 - iteration;
             for (int j = 0; j < this.Largeur; j++)
             {
-                //Affecte la couleur du premier pixel de la largeur à une variable temporaire.
                 Color pixel = this[iteration, j];
-
-                //Affecte la couleur du dernier pixel au premier pixel de la largeur.
                 this[iteration, j] = this[DernierPixel, j];
-
-                //Affecte la couleur du premier pixel au dernier pixel de la largeur.
                 this[DernierPixel, j] = pixel;
-
-                //iteration++;
-
             }
+
             return this.ImageBitmap;
+
         }
 
         #endregion
