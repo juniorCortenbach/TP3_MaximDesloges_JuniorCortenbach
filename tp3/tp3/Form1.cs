@@ -18,9 +18,30 @@ namespace tp3
         // Création d'une matrice d'image
         private int[,] matriceImage;
         //Bitmap de l'image à transformer 
-        Bitmap _imageATransformerBitmap = null;
+        private BitmapMatricielle _imageATransformerBitmap = null;
+
+        private BitmapMatricielle _imageTransformee = null;
+
+        byte _iteration;
+
         #endregion
 
+
+        #region PROPRIETES
+
+        public BitmapMatricielle ImageATransformerBitmap
+        {
+            get { return _imageATransformerBitmap; }
+            set { _imageATransformerBitmap = value; }
+        }
+
+        public BitmapMatricielle ImageTransformee
+        {
+            get { return _imageTransformee; }
+            set { _imageTransformee = value; }
+        }
+
+        #region
 
         public FrmTransformationImage()
         {
@@ -50,33 +71,56 @@ namespace tp3
             OpenFileDialog ofd = new OpenFileDialog();
 
             Utilitaire.DemanderSelectionnerFichierImage(out cheminFichier);
-            this._imageATransformerBitmap = (Bitmap)(this.pboImageIni.Image = Image.FromFile(cheminFichier));
 
-            int largeur = this._imageATransformerBitmap.Width;
-            int hauteur = this._imageATransformerBitmap.Height;
+            this.ImageATransformerBitmap = new BitmapMatricielle();
+            this.ImageATransformerBitmap.ImageBitmap = new Bitmap(Image.FromFile(cheminFichier));
+            this.pboImageIni.Image = this.ImageATransformerBitmap.ImageBitmap;
 
-            // Création de la matrice de l'image charger
-            this.matriceImage = new int[largeur, hauteur];
 
-        }
-
-        private void pboImageIni_Click(object sender, EventArgs e)
-        {
+            this.ImageTransformee = new BitmapMatricielle();
+            this.ImageATransformerBitmap.ImageBitmap = new Bitmap(Image.FromFile(cheminFichier));
+            this.pboImageTransfo.Image = this.ImageATransformerBitmap.ImageBitmap;
 
         }
-
-        private void btnNiveauDeGris_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
 
         private void btnSepia_Click_1(object sender, EventArgs e)
         {
-            MessageBox.Show(this.matriceImage.GetLength(0).ToString());
-            MessageBox.Show(this.matriceImage.GetLength(1).ToString());
+
+            //Bitmap image = this.ImageTransformee.ImageBitmap;
+            //this.ImageTransformee.ImageBitmap = this.ImageATransformerBitmap.MiroirHorizontal(image, this._iteration);
+
+            //this.pboImageTransfo.Image = this.pboImageIni.Image;
+
+            //this.pboImageTransfo.Image = ImageTransformee.ImageBitmap;
+
 
         }
+
+        private void cmbTransformation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //BitmapMatricielle imageTransfo = new BitmapMatricielle(this._imageATransformerBitmap);
+
+            //imageTransfo =  BitmapMatricielle.MiroirHorizontal(this._imageATransformerBitmap);
+
+            if (cmbTransformation.SelectedIndex == 0)
+
+                // this.ImageTransformee.ImageBitmap == this.ImageATransformerBitmap.MiroirHorizontal(ImageATransformerBitmap.ImageBitmap, this._iteration);
+
+                this.pboImageTransfo.Image = ImageTransformee.ImageBitmap;
+
+        }
+
+        private void btnAvancementUnique_Click(object sender, EventArgs e)
+        {
+
+            // this.ImageATransformerBitmap.MiroirHorizontal(image, this._iteration);
+            Bitmap image = this.ImageATransformerBitmap.ImageBitmap;
+            this.ImageTransformee.ImageBitmap = this.ImageATransformerBitmap.MiroirHorizontal(image, this._iteration);
+            this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+            this._iteration++;
+
+        }
+        #endregion
     }
 }
+#endregion

@@ -58,7 +58,7 @@ namespace tp3
             get { return this._imageBitmap.Width; }
         }
 
-        // TODO : Ajouter un indexeur [i, j] pour accéder et modifier les pixels de l'image (i = y, j = x).
+
 
         #endregion
 
@@ -93,12 +93,84 @@ namespace tp3
 
         #endregion
 
+        /// <summary>
+        /// Indexeur qui permet d'accéder aux pixels de l'image en x (lignes) et en y (colonnes).
+        /// </summary>
+        /// <param name="lignes">Indice du sous-élément de l'élément actuel.</param>
+        /// <param name="colonnes">Indice du sous-élément du sous-élément à la position indice1</param>
+        /// <returns>Le sous-élément (String ou ElementHtml) désigné par les deux indices.</returns>
+        public Color this[int i, int j]
+        {
+            get
+            {
+                // Validation des indices à l'aide la méthode privée.
+                // Note : Si les indices sont invalides, cette méthode de validation lève une exception qui n'est pas attrapée ici
+                // et qui causera ainsi l'arrêt de l'exécution de l'accesseur.
+                // ValiderIndicesIndexeur(lignes, colonnes);
+
+                // Récupération de la couleur du pixel à la position (i,j).
+                //Color couleurPixelAIndice = this.ImageBitmap.GetPixel(i, j);
+
+                // Retourne la valeur (pixel) désigné par les deux indices
+                // (comme si un pixel est une position sur un plan cartésien(image)).
+                return this.ImageBitmap.GetPixel(i, j);
+            }
+
+            set
+            {
+
+                // Validation des indices à l'aide la méthode privée.
+                // Note : Si les indices sont invalides, cette méthode de validation lève une exception qui n'est pas attrapée ici
+                // et qui causera ainsi l'arrêt de l'exécution de l'accesseur.
+                //ValiderIndicesIndexeur(indice1, indice2);
+
+                // Récupération du sous-élément (de type ElementHtml) de l'élément actuel à l'indice indice1.
+                //Color couleurPixelAIndice = this.ImageBitmap.GetPixel(i, j);
+
+                // Affecte la couleur désirée à la position demandée.
+                //Color couleurIndice = this.ImageBitmap.SetPixel(i, j, ImageBitmap[i,j].color);
+                // Retourne la valeur (pixel) désigné par les deux indices
+                // (comme si un pixel est une position sur un plan cartésien(image)).
+                //couleurPixelAIndice = (Color) value;
+
+                this.ImageBitmap.SetPixel(i, j, value);
+            }
+        }
+        // TODO : Ajouter un indexeur [i, j] pour accéder et modifier les pixels de l'image (i = y, j = x).
+
         #region MÉTHODES ET OPÉRATEURS
 
         // TODO : Surcharger les opérateurs == et != ainsi que de la méthode "Equals".
 
         // TODO : Créer toutes les méthodes pour les transformations bijectives (une étape)
         // ainsi que pour les effets niveau de gris et sépia.
+
+        public Bitmap MiroirHorizontal(Bitmap imageChargee, int iteration)
+        {
+            //Pour chaque pixel en largeur de l'image.
+            //for (int k = 0; k < this.Hauteur; k++)
+            //{
+            //Le dernier pixel en hauteur = le dernier pixel soustrait de l'itération
+            // (un pixel moins près de l'extrimité à chaque fois) 
+            int DernierPixel = this.Hauteur - iteration - 1;
+
+            //Pour chaque pixel en largeur de l'image.
+            for (int j = 0; j < this.Largeur; j++)
+            {
+                //Affecte la couleur du premier pixel de la largeur à une variable temporaire.
+                Color pixel = this[iteration, j];
+
+                //Affecte la couleur du dernier pixel au premier pixel de la largeur.
+                this[iteration, j] = this[DernierPixel, j];
+
+                //Affecte la couleur du premier pixel au dernier pixel de la largeur.
+                this[DernierPixel, j] = pixel;
+
+                //iteration++;
+
+            }
+            return this.ImageBitmap;
+        }
 
         #endregion
     }
