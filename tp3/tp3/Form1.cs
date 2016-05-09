@@ -112,7 +112,6 @@ namespace tp3
 
         private void btnAvancementUnique_Click(object sender, EventArgs e)
         {
-
             // this.ImageATransformerBitmap.MiroirHorizontal(image, this._iteration);
             Bitmap image = this.ImageATransformerBitmap.ImageBitmap;
             this.ImageTransformee.ImageBitmap = this.ImageATransformerBitmap.MiroirHorizontal(image, this._iteration);
