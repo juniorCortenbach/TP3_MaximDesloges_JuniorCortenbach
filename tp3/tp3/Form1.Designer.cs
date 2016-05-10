@@ -42,7 +42,7 @@
             this.txtAller = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblIteration = new System.Windows.Forms.Label();
             this.pboImageTransfo = new System.Windows.Forms.PictureBox();
             this.btnStoper = new System.Windows.Forms.PictureBox();
             this.btnAvancementContinue = new System.Windows.Forms.PictureBox();
@@ -102,6 +102,7 @@
             this.btnNiveauDeGris.TabIndex = 3;
             this.btnNiveauDeGris.Text = "Niveau de gris";
             this.btnNiveauDeGris.UseVisualStyleBackColor = true;
+            this.btnNiveauDeGris.Click += new System.EventHandler(this.btnNiveauDeGris_Click);
             // 
             // btnSepia
             // 
@@ -176,16 +177,16 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "Itération:";
             // 
-            // label3
+            // lblIteration
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.DarkRed;
-            this.label3.Location = new System.Drawing.Point(1087, 40);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(15, 15);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "0";
+            this.lblIteration.AutoSize = true;
+            this.lblIteration.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIteration.ForeColor = System.Drawing.Color.DarkRed;
+            this.lblIteration.Location = new System.Drawing.Point(1087, 40);
+            this.lblIteration.Name = "lblIteration";
+            this.lblIteration.Size = new System.Drawing.Size(15, 15);
+            this.lblIteration.TabIndex = 12;
+            this.lblIteration.Text = "0";
             // 
             // pboImageTransfo
             // 
@@ -222,6 +223,7 @@
             this.btnAvancementUnique.Size = new System.Drawing.Size(38, 46);
             this.btnAvancementUnique.TabIndex = 16;
             this.btnAvancementUnique.TabStop = false;
+            this.btnAvancementUnique.Click += new System.EventHandler(this.btnAvancementUnique_Click);
             // 
             // btnAvencer
             // 
@@ -273,7 +275,7 @@
             this.Controls.Add(this.btnAvancementContinue);
             this.Controls.Add(this.btnStoper);
             this.Controls.Add(this.pboImageTransfo);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblIteration);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtAller);
@@ -318,7 +320,7 @@
         private System.Windows.Forms.TextBox txtAller;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblIteration;
         private System.Windows.Forms.PictureBox pboImageTransfo;
         private System.Windows.Forms.PictureBox btnStoper;
         private System.Windows.Forms.PictureBox btnAvancementContinue;

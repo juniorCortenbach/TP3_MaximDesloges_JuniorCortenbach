@@ -143,6 +143,83 @@ namespace tp3
         // TODO : Créer toutes les méthodes pour les transformations bijectives (une étape)
         // ainsi que pour les effets niveau de gris et sépia.
 
+        #region #EFFECTS
+
+        #region  NiveauDeGris
+
+        /// <summary>
+        /// </summary>
+        /// <param name="imageChargee"></param>
+        /// <param name="iteration"></param>
+        /// <returns>Retourn l'image transfomé en Niveau de gris</returns>
+        public Bitmap NiveauDeGris(Bitmap imageChargee, int iteration)
+        {
+            //Pour chaque colonne.
+            for (int i = 0; i < this.Largeur; i++)
+            {
+                //Pour chaque rangée.
+                for (int j = 0; j < this.Hauteur; j++)
+                {
+                    //Prend la couleur de chaque pixel
+                    Color couleur = imageChargee.GetPixel(i, j);
+                    //Prend le rouge le vert et le bleu de chaque pixel et y applique une transformation
+                    byte r = (byte)Math.Round(couleur.R * 0.299);
+                    byte v = (byte)Math.Round(couleur.G * 0.587);
+                    byte b = (byte)Math.Round(couleur.B * 0.114);
+
+                    //La couleur final est stoxcker dans la variable
+                    Color nouvelleCouleur = Color.FromArgb(r, v, b);
+                    //Chaque pixel et afficher de nouveau avec sa nouvelle couleur
+                    imageChargee.SetPixel(i, j, nouvelleCouleur);
+                }
+            }
+            //Retourne la nouvelle image transformée 
+            return this.ImageBitmap;
+        }
+        #endregion
+
+        #region Sepia
+
+        /// <summary>
+        /// </summary>
+        /// <param name="imageChargee"></param>
+        /// <param name="iteration"></param>
+        /// <returns>Retourn l'image transfomé en Sepia</returns>
+        public Bitmap Sepia(Bitmap imageChargee, int iteration)
+        {
+            //Pour chaque colonne.
+            for (int i = 0; i < this.Largeur; i++)
+            {
+                //Pour chaque rangée.
+                for (int j = 0; j < this.Hauteur; j++)
+                {
+                    //Prend la couleur de chaque pixel
+                    Color couleur = imageChargee.GetPixel(i, j);
+                    //Prend le rouge le vert et le bleu de chaque pixel et y applique une transformation
+                    byte r = (byte)(Math.Round(couleur.R * 0.393) + Math.Round(couleur.G * 0.769) + Math.Round(couleur.B * 0.189));
+                    byte v = (byte)(Math.Round(couleur.R * 0.349) + Math.Round(couleur.G * 0.686) + Math.Round(couleur.B * 0.168));
+                    byte b = (byte)(Math.Round(couleur.R * 0.272) + Math.Round(couleur.G * 0.534) + Math.Round(couleur.B * 0.131));
+
+                    //La couleur final est stoxcker dans la variable
+                    Color nouvelleCouleur = Color.FromArgb(r, v, b);
+                    //Chaque pixel et afficher de nouveau avec sa nouvelle couleur
+                    imageChargee.SetPixel(i, j, nouvelleCouleur);
+                }
+            }
+            //Retourne la nouvelle image transformée 
+            return this.ImageBitmap;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region TRANSFORMATION
+      
+        #region MiroirHorizontal
+        /// <summary>
+        /// Méthode qui retourne limage transformé en miroir horizontal
+        /// </summary>
         public void MiroirHorizontal()
         {
             //Pour chaque colonne.
@@ -164,7 +241,13 @@ namespace tp3
             }
 
         }
+        #endregion
 
+        #region MiroirVertical
+
+        /// <summary>
+        /// Méthode qui retourne limage transformé en miroir Vertical
+        /// </summary>
         public void MiroirVertical()
         {
             //Pour chaque colonne.
@@ -186,6 +269,9 @@ namespace tp3
             }
 
         }
+                    #endregion
+
+                #endregion
 
         #endregion
     }

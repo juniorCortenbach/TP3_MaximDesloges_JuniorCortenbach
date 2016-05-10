@@ -100,12 +100,10 @@ namespace tp3
         private void btnSepia_Click_1(object sender, EventArgs e)
         {
 
-            //Bitmap image = this.ImageTransformee.ImageBitmap;
-            //this.ImageTransformee.ImageBitmap = this.ImageATransformerBitmap.MiroirHorizontal(image, this._iteration);
-
-            //this.pboImageTransfo.Image = this.pboImageIni.Image;
-
-            //this.pboImageTransfo.Image = ImageTransformee.ImageBitmap;
+            Bitmap image = this.ImageATransformerBitmap.ImageBitmap;
+            this.ImageTransformee.ImageBitmap = this.ImageATransformerBitmap.Sepia(image, this._iteration);
+            this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+            this._iteration++;
 
 
         }
@@ -126,12 +124,24 @@ namespace tp3
 
         private void btnAvancementUnique_Click(object sender, EventArgs e)
         {
+       
             // this.ImageATransformerBitmap.MiroirHorizontal(image, this._iteration);
             this.ImageTransformee.MiroirHorizontal();
             this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
             this.pboImageTransfo.Invalidate();
+           
+           
         }
         #endregion
+
+        private void btnNiveauDeGris_Click(object sender, EventArgs e)
+        {
+            Bitmap image = this.ImageATransformerBitmap.ImageBitmap;
+            this.ImageTransformee.ImageBitmap = this.ImageATransformerBitmap.NiveauDeGris(image, this._iteration);
+            this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+            this._iteration++;
+
+        }
     }
 }
 #endregion
