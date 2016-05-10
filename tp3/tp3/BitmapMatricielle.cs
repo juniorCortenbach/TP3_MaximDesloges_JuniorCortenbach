@@ -1,7 +1,7 @@
 ﻿#region MÉTADONNÉES
 
 // Nom du fichier : BitmapMatricielle.cs
-// Auteur : [VOTRE NOM]
+// Auteur : Desloges et Junior
 // Date de création : 2016-04-25
 // Date de modification : 2016-04-25
 
@@ -57,8 +57,6 @@ namespace tp3
         {
             get { return this._imageBitmap.Width; }
         }
-
-
 
         #endregion
 
@@ -145,17 +143,47 @@ namespace tp3
         // TODO : Créer toutes les méthodes pour les transformations bijectives (une étape)
         // ainsi que pour les effets niveau de gris et sépia.
 
-        public Bitmap MiroirHorizontal(Bitmap imageChargee, int iteration)
+        public void MiroirHorizontal()
         {
-            int DernierPixel = this.Hauteur - 1 - iteration;
-            for (int j = 0; j < this.Largeur; j++)
+            //Pour chaque colonne.
+            for (int x = 0; x < this.Largeur / 2; x++)
             {
-                Color pixel = this[iteration, j];
-                this[iteration, j] = this[DernierPixel, j];
-                this[DernierPixel, j] = pixel;
+                //Pour chaque rangée.
+                for (int y = 0; y < this.Hauteur; y++)
+                {
+                    //Affecte la couleur du premier pixel de la largeur à une variable temporaire.
+                    Color pixel = this[x, y];
+
+                    //Affecte la couleur du dernier pixel au premier pixel de la largeur.
+                    this[x, y] = this[this.Largeur - 1 - x, y];
+
+                    //Affecte la couleur du premier pixel au dernier pixel de la largeur.
+                    this[this.Largeur - 1 - x, y] = pixel;
+                }
+
             }
 
-            return this.ImageBitmap;
+        }
+
+        public void MiroirVertical()
+        {
+            //Pour chaque colonne.
+            for (int y = 0; y < this.Hauteur; y++)
+            {
+                //Pour chaque rangée.
+                for (int x = 0; x < this.Largeur / 2; x++)
+                {
+                    //Affecte la couleur du premier pixel de la largeur à une variable temporaire.
+                    Color pixel = this[y, x];
+
+                    //Affecte la couleur du dernier pixel au premier pixel de la largeur.
+                    this[y, x] = this[y, this.Largeur - 1 - x];
+
+                    //Affecte la couleur du premier pixel au dernier pixel de la largeur.
+                    this[y, this.Largeur - 1 - x] = pixel;
+                }
+
+            }
 
         }
 

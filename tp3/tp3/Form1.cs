@@ -55,6 +55,20 @@ namespace tp3
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            string cheminFichier;
+            // Création de l'objet "OpenFileDialog".
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            Utilitaire.DemanderSelectionnerFichierImage(out cheminFichier);
+
+            this.ImageATransformerBitmap = new BitmapMatricielle();
+            this.ImageATransformerBitmap.ImageBitmap = new Bitmap(Image.FromFile(cheminFichier));
+            this.pboImageIni.Image = this.ImageATransformerBitmap.ImageBitmap;
+
+
+            this.ImageTransformee = new BitmapMatricielle();
+            this.ImageTransformee.ImageBitmap = new Bitmap(Image.FromFile(cheminFichier));
+            this.pboImageTransfo.Image = this.ImageATransformerBitmap.ImageBitmap;
 
             foreach (TransformationType transformation in Enum.GetValues(typeof(TransformationType)))
             {
@@ -78,7 +92,7 @@ namespace tp3
 
 
             this.ImageTransformee = new BitmapMatricielle();
-            this.ImageATransformerBitmap.ImageBitmap = new Bitmap(Image.FromFile(cheminFichier));
+            this.ImageTransformee.ImageBitmap = new Bitmap(Image.FromFile(cheminFichier));
             this.pboImageTransfo.Image = this.ImageATransformerBitmap.ImageBitmap;
 
         }
@@ -113,11 +127,9 @@ namespace tp3
         private void btnAvancementUnique_Click(object sender, EventArgs e)
         {
             // this.ImageATransformerBitmap.MiroirHorizontal(image, this._iteration);
-            Bitmap image = this.ImageATransformerBitmap.ImageBitmap;
-            this.ImageTransformee.ImageBitmap = this.ImageATransformerBitmap.MiroirHorizontal(image, this._iteration);
+            this.ImageTransformee.MiroirHorizontal();
             this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-            this._iteration++;
-
+            this.pboImageTransfo.Invalidate();
         }
         #endregion
     }
