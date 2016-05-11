@@ -167,8 +167,10 @@ namespace tp3
                     byte v = (byte)Math.Round(couleur.G * 0.587);
                     byte b = (byte)Math.Round(couleur.B * 0.114);
 
+                    byte ng = (byte)(r + v + b);
+
                     //La couleur final est stoxcker dans la variable
-                    Color nouvelleCouleur = Color.FromArgb(r, v, b);
+                    Color nouvelleCouleur = Color.FromArgb(ng, ng, ng);
                     //Chaque pixel et afficher de nouveau avec sa nouvelle couleur
                     imageChargee.SetPixel(i, j, nouvelleCouleur);
                 }
@@ -195,10 +197,11 @@ namespace tp3
                 {
                     //Prend la couleur de chaque pixel
                     Color couleur = imageChargee.GetPixel(i, j);
-                    //Prend le rouge le vert et le bleu de chaque pixel et y applique une transformation
-                    byte r = (byte)(Math.Round(couleur.R * 0.393) + Math.Round(couleur.G * 0.769) + Math.Round(couleur.B * 0.189));
-                    byte v = (byte)(Math.Round(couleur.R * 0.349) + Math.Round(couleur.G * 0.686) + Math.Round(couleur.B * 0.168));
-                    byte b = (byte)(Math.Round(couleur.R * 0.272) + Math.Round(couleur.G * 0.534) + Math.Round(couleur.B * 0.131));
+                    ////Prend le rouge le vert et le bleu de chaque pixel et y applique une transformation
+                    byte r = (byte)(Math.Min(couleur.R * 0.393 + couleur.G * 0.769 + couleur.B * 0.189, 255));
+                    byte v = (byte)(Math.Min(couleur.R * 0.349 + couleur.G * 0.686 + couleur.B * 0.168, 255));
+                    byte b = (byte)(Math.Min(couleur.R * 0.272 + couleur.G * 0.534 + couleur.B * 0.131, 255));
+
 
                     //La couleur final est stoxcker dans la variable
                     Color nouvelleCouleur = Color.FromArgb(r, v, b);
