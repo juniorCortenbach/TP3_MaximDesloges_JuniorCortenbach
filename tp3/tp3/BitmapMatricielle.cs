@@ -218,7 +218,83 @@ namespace tp3
         #endregion
 
         #region TRANSFORMATION
-      
+
+        #region DécalageHorizontal
+
+        /// <summary>
+        ///  Méthode qui retourne l'image décallée horizontalment
+        /// </summary>
+        public void DecalageHorizontal()
+        {
+            //Tablau temporaire de pixel en column
+            Color[] pixelColumn = new Color[this.Hauteur];
+
+            //Pour chaque colonne.
+            for (int i = 0; i < this.Largeur; i++)
+            {
+                //Pour chaque rangée.
+                // Décalage des pixels dans la colonne de travail
+
+                for (int j = 0; j < this.Hauteur; j++)
+                {
+                    if (j == 0)
+                    {
+                        pixelColumn[j] = this[i, this.Hauteur - 1];
+                    }
+                    else
+                    {
+                        pixelColumn[j] = this[i, j - 1];
+                    }
+                }
+
+                // recopie depuis la colonne de travail
+                for (int j = 0; j < this.Hauteur; j++)
+                {
+                    this[i, j] = pixelColumn[j];
+                }
+            }
+
+        }
+
+
+        #endregion
+        
+        #region DécalageVertical
+        /// <summary>
+        /// Méthode qui retourne l'image décallée verticalment 
+        /// </summary>
+        public void DecalageVertical()
+        {
+            //Tablau temporaire de pixel en rangee 
+            Color[] pixelRangee = new Color[this.Largeur];
+
+            //Pour chaque rangée.
+            for (int j = 0; j < this.Hauteur; j++)
+            {
+                //Pour chaque rangée.
+                // Décalage des pixels dans la rangée de travail
+                for (int i = 0; i < this.Largeur; i++)
+                {
+                    if (i == 0)
+                    {
+                        pixelRangee[i] = this[this.Largeur - 1, j];
+                    }
+                    else
+                    {
+                        pixelRangee[i] = this[i - 1, j];
+                    }
+                }
+
+                // recopie depuis la rangee de travail
+                for (int i = 0; i < this.Largeur; i++)
+                {
+                    this[i, j] = pixelRangee[i];
+                }
+            }
+
+        }
+        #endregion
+        
         #region MiroirHorizontal
         /// <summary>
         /// Méthode qui retourne limage transformé en miroir horizontal
@@ -226,19 +302,19 @@ namespace tp3
         public void MiroirHorizontal()
         {
             //Pour chaque colonne.
-            for (int x = 0; x < this.Largeur / 2; x++)
+            for (int i = 0; i < this.Largeur / 2; i++)
             {
                 //Pour chaque rangée.
-                for (int y = 0; y < this.Hauteur; y++)
+                for (int j = 0; j < this.Hauteur; j++)
                 {
                     //Affecte la couleur du premier pixel de la largeur à une variable temporaire.
-                    Color pixel = this[x, y];
+                    Color pixel = this[i, j];
 
                     //Affecte la couleur du dernier pixel au premier pixel de la largeur.
-                    this[x, y] = this[this.Largeur - 1 - x, y];
+                    this[i, j] = this[this.Largeur - 1 - i, j];
 
                     //Affecte la couleur du premier pixel au dernier pixel de la largeur.
-                    this[this.Largeur - 1 - x, y] = pixel;
+                    this[this.Largeur - 1 - i, j] = pixel;
                 }
 
             }
@@ -254,19 +330,19 @@ namespace tp3
         public void MiroirVertical()
         {
             //Pour chaque colonne.
-            for (int y = 0; y < this.Hauteur; y++)
+            for (int j = 0; j < this.Hauteur; j++)
             {
                 //Pour chaque rangée.
-                for (int x = 0; x < this.Largeur / 2; x++)
+                for (int i = 0; i < this.Largeur / 2; i++)
                 {
                     //Affecte la couleur du premier pixel de la largeur à une variable temporaire.
-                    Color pixel = this[y, x];
+                    Color pixel = this[j, i];
 
                     //Affecte la couleur du dernier pixel au premier pixel de la largeur.
-                    this[y, x] = this[y, this.Largeur - 1 - x];
+                    this[j, i] = this[j, this.Largeur - 1 - i];
 
                     //Affecte la couleur du premier pixel au dernier pixel de la largeur.
-                    this[y, this.Largeur - 1 - x] = pixel;
+                    this[j, this.Largeur - 1 - i] = pixel;
                 }
 
             }
