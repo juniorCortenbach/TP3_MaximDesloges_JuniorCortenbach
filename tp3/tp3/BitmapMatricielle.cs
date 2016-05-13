@@ -154,6 +154,8 @@ namespace tp3
         /// <returns>Retourn l'image transfomé en Niveau de gris</returns>
         public Bitmap NiveauDeGris(Bitmap imageChargee, int iteration)
         {
+
+
             //Pour chaque colonne.
             for (int i = 0; i < this.Largeur; i++)
             {
@@ -161,18 +163,15 @@ namespace tp3
                 for (int j = 0; j < this.Hauteur; j++)
                 {
                     //Prend la couleur de chaque pixel
-                    Color couleur = imageChargee.GetPixel(i, j);
+                    Color couleur = this[i, j];
                     //Prend le rouge le vert et le bleu de chaque pixel et y applique une transformation
-                    byte r = (byte)Math.Round(couleur.R * 0.299);
-                    byte v = (byte)Math.Round(couleur.G * 0.587);
-                    byte b = (byte)Math.Round(couleur.B * 0.114);
+                    byte ng = (byte)Math.Round(couleur.R * 0.299 + couleur.G * 0.587 + couleur.B * 0.114);
 
-                    byte ng = (byte)(r + v + b);
 
                     //La couleur final est stoxcker dans la variable
                     Color nouvelleCouleur = Color.FromArgb(ng, ng, ng);
                     //Chaque pixel et afficher de nouveau avec sa nouvelle couleur
-                    imageChargee.SetPixel(i, j, nouvelleCouleur);
+                    this[i, j] = nouvelleCouleur;
                 }
             }
             //Retourne la nouvelle image transformée 
@@ -196,7 +195,7 @@ namespace tp3
                 for (int j = 0; j < this.Hauteur; j++)
                 {
                     //Prend la couleur de chaque pixel
-                    Color couleur = imageChargee.GetPixel(i, j);
+                    Color couleur = this[i, j];
                     ////Prend le rouge le vert et le bleu de chaque pixel et y applique une transformation
                     byte r = (byte)(Math.Min(couleur.R * 0.393 + couleur.G * 0.769 + couleur.B * 0.189, 255));
                     byte v = (byte)(Math.Min(couleur.R * 0.349 + couleur.G * 0.686 + couleur.B * 0.168, 255));
@@ -206,7 +205,7 @@ namespace tp3
                     //La couleur final est stoxcker dans la variable
                     Color nouvelleCouleur = Color.FromArgb(r, v, b);
                     //Chaque pixel et afficher de nouveau avec sa nouvelle couleur
-                    imageChargee.SetPixel(i, j, nouvelleCouleur);
+                    this[i, j] = nouvelleCouleur;
                 }
             }
             //Retourne la nouvelle image transformée 
@@ -218,6 +217,59 @@ namespace tp3
         #endregion
 
         #region TRANSFORMATION
+
+        #region Photomaton
+
+        /// <summary>
+        /// Méthode qui retourne l'image en Photomaton
+        /// </summary>
+        public void Photomaton()
+        {
+            //Taille du tableaux temporaire
+            Color[,] tabTempo = new Color[this.Largeur, this.Hauteur];
+            //boucle pour le rouge
+            for (int j = 0; j < this.Hauteur; j = j + 2)
+            {
+                for (int i = 0; i < this.Largeur; i = i + 2)
+                {
+                    tabTempo[i / 2, j / 2] = this[i, j];
+                }
+            }
+            //boucle pour le bleu
+            for (int i = 1; i < this.Largeur; i = i + 2)
+            {
+                for (int j = 0; j < this.Hauteur; j = j + 2)
+                {
+                    tabTempo[i / 2 + this.Largeur / 2, j / 2] = this[i, j];
+                }
+            }
+            //boucle pour le vert
+            for (int j = 1; j < this.Hauteur; j = j + 2)
+            {
+                for (int i = 0; i < this.Largeur; i = i + 2)
+                {
+                    tabTempo[i / 2, j / 2 + this.Hauteur / 2] = this[i, j];
+                }
+            }
+            //boucle pour le jaune
+            for (int j = 1; j < this.Hauteur; j = j + 2)
+            {
+                for (int i = 1; i < this.Largeur; i = i + 2)
+                {
+                    tabTempo[i / 2 + this.Largeur / 2, j / 2 + this.Hauteur / 2] = this[i, j];
+                }
+            }
+            // recopie depuis la colonne de travail
+            for (int i = 0; i < this.Largeur; i++)
+            {
+                for (int j = 0; j < this.Hauteur; j++)
+                {
+                    this[i, j] = tabTempo[i, j];
+                }
+            }
+        }
+
+        #endregion
 
         #region DécalageHorizontal
 

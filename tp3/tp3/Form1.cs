@@ -125,13 +125,13 @@ namespace tp3
         private void btnAvancementUnique_Click(object sender, EventArgs e)
         {
             //pour accélére la transofmation horizontal et verticale boucle temporaire
-            for (int i = 0; i < 30; i++)
-            {
+            //for (int i = 0; i < 30; i++)
+            //{
                 // this.ImageATransformerBitmap.MiroirHorizontal(image, this._iteration);
-                this.ImageTransformee.DecalageVertical();
+                this.ImageTransformee.Photomaton();
                 this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
                 // this.pboImageTransfo.Invalidate();
-            }
+            //}
 
         }
         #endregion
