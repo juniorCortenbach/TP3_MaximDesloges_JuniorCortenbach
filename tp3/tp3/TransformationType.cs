@@ -28,6 +28,8 @@ namespace tp3
         Transposition,
         [Description("Décalage horizontal vers la droite")]
         DecalageHorizontal,
+        [Description("Décalage vertical vers la droite")]
+        DecalageVertical,
         [Description("Décalage en diagonale vers la droite et le bas")]
         DecalageEnDiagonale,
         [Description("En colonnes (dimensions paires)")]

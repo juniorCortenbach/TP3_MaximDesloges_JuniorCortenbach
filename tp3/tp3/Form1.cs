@@ -31,14 +31,14 @@ namespace tp3
 
         public BitmapMatricielle ImageATransformerBitmap
         {
-            get { return _imageATransformerBitmap; }
-            set { _imageATransformerBitmap = value; }
+            get { return this._imageATransformerBitmap; }
+            set { this._imageATransformerBitmap = value; }
         }
 
         public BitmapMatricielle ImageTransformee
         {
-            get { return _imageTransformee; }
-            set { _imageTransformee = value; }
+            get { return this._imageTransformee; }
+            set { this._imageTransformee = value; }
         }
 
         #region
@@ -55,6 +55,10 @@ namespace tp3
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //Temps chronomètre
+            this.chronometre1.Interval = 1000;
+
+
             string cheminFichier;
             // Création de l'objet "OpenFileDialog".
             OpenFileDialog ofd = new OpenFileDialog();
@@ -70,6 +74,8 @@ namespace tp3
             this.ImageTransformee.ImageBitmap = new Bitmap(Image.FromFile(cheminFichier));
             this.pboImageTransfo.Image = this.ImageATransformerBitmap.ImageBitmap;
 
+
+            //Boucle qui permet d'afficher les Transformation dans un combobox
             foreach (TransformationType transformation in Enum.GetValues(typeof(TransformationType)))
             {
                 this.cmbTransformation.Items.Add(transformation);
@@ -108,30 +114,63 @@ namespace tp3
 
         }
 
-        private void cmbTransformation_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //BitmapMatricielle imageTransfo = new BitmapMatricielle(this._imageATransformerBitmap);
-
-            //imageTransfo =  BitmapMatricielle.MiroirHorizontal(this._imageATransformerBitmap);
-
-            if (cmbTransformation.SelectedIndex == 0)
-
-                // this.ImageTransformee.ImageBitmap == this.ImageATransformerBitmap.MiroirHorizontal(ImageATransformerBitmap.ImageBitmap, this._iteration);
-
-                this.pboImageTransfo.Image = ImageTransformee.ImageBitmap;
-
-        }
 
         private void btnAvancementUnique_Click(object sender, EventArgs e)
         {
-            //pour accélére la transofmation horizontal et verticale boucle temporaire
-            //for (int i = 0; i < 30; i++)
-            //{
-                // this.ImageATransformerBitmap.MiroirHorizontal(image, this._iteration);
-                this.ImageTransformee.Photomaton();
-                this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                // this.pboImageTransfo.Invalidate();
-            //}
+            if (this.cmbTransformation.SelectedItem == null)
+            {
+                MessageBox.Show(@"Veuillez selectionez une transformation");
+            }
+            else
+            {
+                //Variable TransformationType qui contient la transformation selectionée
+                TransformationType transformation = (TransformationType)Enum.Parse(typeof(TransformationType), this.cmbTransformation.SelectedItem.ToString());
+
+            switch (transformation)
+            {
+                case TransformationType.MiroirHorizontal:
+                    this.ImageTransformee.MiroirHorizontal();
+                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                    break;
+                case TransformationType.MiroirVertical:
+                    this.ImageTransformee.MiroirVertical();
+                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                    break;
+                case TransformationType.Transposition:
+                    MessageBox.Show(@"En constructions");
+                    break;
+                case TransformationType.DecalageHorizontal:
+                    this.ImageTransformee.DecalageHorizontal();
+                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                    break;
+                case TransformationType.DecalageVertical:
+                    MessageBox.Show(@"En constructions");
+                    break;
+                case TransformationType.DecalageEnDiagonale:
+                    MessageBox.Show(@"En constructions");
+                    break;
+                case TransformationType.Colonnes:
+                    MessageBox.Show(@"En constructions");
+                    break;
+                case TransformationType.Photomaton:
+                    this.ImageTransformee.Photomaton();
+                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                    break;
+                case TransformationType.Boulanger:
+                    MessageBox.Show(@"En constructions");
+                    break;
+                case TransformationType.Fleur:
+                    MessageBox.Show(@"En constructions");
+                    break;
+                case TransformationType.Svastika:
+                    MessageBox.Show(@"En constructions");
+                    break;
+                default:
+                    MessageBox.Show(@"Une erreur s'est produite");
+                    break;
+             }
+
+            }
 
         }
         #endregion
@@ -142,6 +181,86 @@ namespace tp3
             this.ImageTransformee.ImageBitmap = this.ImageATransformerBitmap.NiveauDeGris(image, this._iteration);
             this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
             this._iteration++;
+
+        }
+
+        private void btnStoper_Click(object sender, EventArgs e)
+        {
+            this.chronometre1.Stop();
+        }
+
+        private void btnAvancementContinue_Click(object sender, EventArgs e)
+        {
+            switch (this.txtDuree.Text)
+            {
+                case "":
+                    MessageBox.Show(@"Veillez entrez une durée");
+                    break;
+                case null:
+                    MessageBox.Show(@"Veillez entrez une durée");
+                    break;
+                default:
+                    if (this.cmbTransformation.SelectedItem == null)
+                    {
+                        MessageBox.Show(@"Veuillez selectionez une transformation");
+                    }
+                    else
+                    this.chronometre1.Start();
+                    break;
+            }
+
+     
+        }
+
+        private void chronometre1_Tick(object sender, EventArgs e)
+        {
+           
+                        //Variable TransformationType qui contient la transformation selectionée
+                        TransformationType transformation = (TransformationType)Enum.Parse(typeof(TransformationType), this.cmbTransformation.SelectedItem.ToString());
+
+                        switch (transformation)
+                        {
+                            case TransformationType.MiroirHorizontal:
+                                this.ImageTransformee.MiroirHorizontal();
+                                this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                                break;
+                            case TransformationType.MiroirVertical:
+                                this.ImageTransformee.MiroirVertical();
+                                this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                                break;
+                            case TransformationType.Transposition:
+                                 //En construction        
+                                 break;
+                            case TransformationType.DecalageHorizontal:
+                                this.ImageTransformee.DecalageHorizontal();
+                                this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                                break;
+                            case TransformationType.DecalageVertical:
+                             //En construction
+                                break;
+                            case TransformationType.DecalageEnDiagonale:
+                             //En construction
+                                break;
+                            case TransformationType.Colonnes:
+                               //En construction
+                                break;
+                            case TransformationType.Photomaton:
+                                this.ImageTransformee.Photomaton();
+                                this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                                break;
+                            case TransformationType.Boulanger:
+                               //En construction
+                                break;
+                            case TransformationType.Fleur:
+                              //En construction
+                                break;
+                            case TransformationType.Svastika:
+                             //En construction
+                                 break;
+                            default:
+                                MessageBox.Show(@"Une erreur s'est produite");
+                                break;
+                        }
 
         }
     }

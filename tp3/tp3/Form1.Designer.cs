@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmTransformationImage));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fichierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,7 +38,7 @@
             this.btnSepia = new System.Windows.Forms.Button();
             this.Transformation = new System.Windows.Forms.Label();
             this.btnDuree = new System.Windows.Forms.Label();
-            this.txtDurée = new System.Windows.Forms.TextBox();
+            this.txtDuree = new System.Windows.Forms.TextBox();
             this.cmbTransformation = new System.Windows.Forms.ComboBox();
             this.txtAller = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -51,6 +52,7 @@
             this.btnRetour = new System.Windows.Forms.PictureBox();
             this.pboImageIni = new System.Windows.Forms.PictureBox();
             this.lblMessage = new System.Windows.Forms.Label();
+            this.chronometre1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboImageTransfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnStoper)).BeginInit();
@@ -134,12 +136,12 @@
             this.btnDuree.TabIndex = 6;
             this.btnDuree.Text = "Durée (ms) :";
             // 
-            // txtDurée
+            // txtDuree
             // 
-            this.txtDurée.Location = new System.Drawing.Point(531, 39);
-            this.txtDurée.Name = "txtDurée";
-            this.txtDurée.Size = new System.Drawing.Size(61, 20);
-            this.txtDurée.TabIndex = 7;
+            this.txtDuree.Location = new System.Drawing.Point(531, 39);
+            this.txtDuree.Name = "txtDuree";
+            this.txtDuree.Size = new System.Drawing.Size(61, 20);
+            this.txtDuree.TabIndex = 7;
             // 
             // cmbTransformation
             // 
@@ -191,9 +193,9 @@
             // pboImageTransfo
             // 
             this.pboImageTransfo.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.pboImageTransfo.Location = new System.Drawing.Point(572, 110);
+            this.pboImageTransfo.Location = new System.Drawing.Point(590, 107);
             this.pboImageTransfo.Name = "pboImageTransfo";
-            this.pboImageTransfo.Size = new System.Drawing.Size(561, 408);
+            this.pboImageTransfo.Size = new System.Drawing.Size(512, 512);
             this.pboImageTransfo.TabIndex = 13;
             this.pboImageTransfo.TabStop = false;
             // 
@@ -205,6 +207,7 @@
             this.btnStoper.Size = new System.Drawing.Size(38, 46);
             this.btnStoper.TabIndex = 14;
             this.btnStoper.TabStop = false;
+            this.btnStoper.Click += new System.EventHandler(this.btnStoper_Click);
             // 
             // btnAvancementContinue
             // 
@@ -214,6 +217,7 @@
             this.btnAvancementContinue.Size = new System.Drawing.Size(38, 46);
             this.btnAvancementContinue.TabIndex = 15;
             this.btnAvancementContinue.TabStop = false;
+            this.btnAvancementContinue.Click += new System.EventHandler(this.btnAvancementContinue_Click);
             // 
             // btnAvancementUnique
             // 
@@ -246,9 +250,9 @@
             // pboImageIni
             // 
             this.pboImageIni.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.pboImageIni.Location = new System.Drawing.Point(0, 110);
+            this.pboImageIni.Location = new System.Drawing.Point(37, 107);
             this.pboImageIni.Name = "pboImageIni";
-            this.pboImageIni.Size = new System.Drawing.Size(561, 408);
+            this.pboImageIni.Size = new System.Drawing.Size(512, 512);
             this.pboImageIni.TabIndex = 19;
             this.pboImageIni.TabStop = false;
             // 
@@ -262,11 +266,15 @@
             this.lblMessage.TabIndex = 21;
             this.lblMessage.Text = "llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll";
             // 
+            // chronometre1
+            // 
+            this.chronometre1.Tick += new System.EventHandler(this.chronometre1_Tick);
+            // 
             // FrmTransformationImage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1133, 530);
+            this.ClientSize = new System.Drawing.Size(1133, 631);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.pboImageIni);
             this.Controls.Add(this.btnRetour);
@@ -280,7 +288,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtAller);
             this.Controls.Add(this.cmbTransformation);
-            this.Controls.Add(this.txtDurée);
+            this.Controls.Add(this.txtDuree);
             this.Controls.Add(this.btnDuree);
             this.Controls.Add(this.Transformation);
             this.Controls.Add(this.btnSepia);
@@ -315,7 +323,7 @@
         private System.Windows.Forms.Button btnSepia;
         private System.Windows.Forms.Label Transformation;
         private System.Windows.Forms.Label btnDuree;
-        private System.Windows.Forms.TextBox txtDurée;
+        private System.Windows.Forms.TextBox txtDuree;
         private System.Windows.Forms.ComboBox cmbTransformation;
         private System.Windows.Forms.TextBox txtAller;
         private System.Windows.Forms.Label label1;
@@ -329,6 +337,7 @@
         private System.Windows.Forms.PictureBox btnRetour;
         private System.Windows.Forms.PictureBox pboImageIni;
         private System.Windows.Forms.Label lblMessage;
+        private System.Windows.Forms.Timer chronometre1;
     }
 }
 
