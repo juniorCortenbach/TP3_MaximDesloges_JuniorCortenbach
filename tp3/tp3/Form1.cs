@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,6 +81,13 @@ namespace tp3
             {
                 this.cmbTransformation.Items.Add(transformation);
             }
+            List<String> transformationAffichage = UtilEnum.GetAllDescriptions<TransformationType>();
+
+            ////Boucle qui permet d'afficher les Transformation dans un combobox
+            //for (int i = 0; i < transformationAffichage.Count; i++)
+            //{
+            //    this.cmbTransformation.Items.Add(transformationAffichage[i]);
+            //}
 
         }
 
@@ -131,45 +139,67 @@ namespace tp3
                     case TransformationType.MiroirHorizontal:
                         this.ImageTransformee.MiroirHorizontal();
                         this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        this._iteration++;
                         break;
                     case TransformationType.MiroirVertical:
                         this.ImageTransformee.MiroirVertical();
                         this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        this._iteration++;
                         break;
                     case TransformationType.Transposition:
                         MessageBox.Show(@"En constructions");
+                        this._iteration++;
                         break;
                     case TransformationType.DecalageHorizontal:
                         this.ImageTransformee.DecalageHorizontal();
                         this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        this._iteration++;
                         break;
                     case TransformationType.DecalageVertical:
                         MessageBox.Show(@"En constructions");
+                        this._iteration++;
                         break;
                     case TransformationType.DecalageEnDiagonale:
                         this.ImageTransformee.DecalageDiagonale();
                         this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        this._iteration++;
                         break;
                     case TransformationType.Colonnes:
                         MessageBox.Show(@"En constructions");
+                        this._iteration++;
                         break;
                     case TransformationType.Photomaton:
                         this.ImageTransformee.Photomaton();
                         this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        this._iteration++;
                         break;
                     case TransformationType.Boulanger:
                         MessageBox.Show(@"En constructions");
+                        this._iteration++;
                         break;
                     case TransformationType.Fleur:
                         MessageBox.Show(@"En constructions");
+                        this._iteration++;
                         break;
                     case TransformationType.Svastika:
-                        MessageBox.Show(@"En constructions");
+                        if (this.ImageTransformee.Hauteur > this.ImageTransformee.Largeur)
+                        {
+                            MessageBox.Show(@"Les dimensions de l'image doivent être identiques pour effectuer une transformation de Svastiska", @"Erreur : Opération impossible",
+    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            this.ImageTransformee.Svasitka();
+                            this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                            this._iteration++;
+                        }
                         break;
                     default:
                         MessageBox.Show(@"Une erreur s'est produite");
                         break;
                 }
+                //Affiche le nombre d'iteration
+                this.lblIteration.Text = this._iteration.ToString();
 
             }
 
@@ -182,7 +212,8 @@ namespace tp3
             this.ImageTransformee.ImageBitmap = this.ImageATransformerBitmap.NiveauDeGris(image, this._iteration);
             this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
             this._iteration++;
-
+            //Affiche le nombre d'iteration
+            this.lblIteration.Text = this._iteration.ToString();
         }
 
         private void btnStoper_Click(object sender, EventArgs e)
@@ -215,8 +246,11 @@ namespace tp3
 
         private void chronometre1_Tick(object sender, EventArgs e)
         {
+
             //Variable TransformationType qui contient la transformation selectionée
             TransformationType transformation = (TransformationType)Enum.Parse(typeof(TransformationType), this.cmbTransformation.SelectedItem.ToString());
+
+            this._iteration++;
 
             switch (transformation)
             {
@@ -234,6 +268,7 @@ namespace tp3
                 case TransformationType.DecalageHorizontal:
                     this.ImageTransformee.DecalageHorizontal();
                     this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+
                     break;
                 case TransformationType.DecalageVertical:
                     //En construction
@@ -247,12 +282,15 @@ namespace tp3
                 case TransformationType.Photomaton:
                     this.ImageTransformee.Photomaton();
                     this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+
                     break;
                 case TransformationType.Boulanger:
                     //En construction
+
                     break;
                 case TransformationType.Fleur:
                     //En construction
+
                     break;
                 case TransformationType.Svastika:
                     //En construction
@@ -262,6 +300,13 @@ namespace tp3
                     break;
             }
 
+
+        }
+
+        private void btnAvencer_Click(object sender, EventArgs e)
+        {
+            //Permet de revenir au début sans transformation 
+            this.pboImageTransfo.Image = this.pboImageIni.Image;
         }
     }
 }

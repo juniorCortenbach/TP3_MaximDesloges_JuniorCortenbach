@@ -347,8 +347,11 @@ namespace tp3
         }
         #endregion
 
-        #region DECALAGEDIAGONALE
+        #region DécalageDiagonale
 
+        /// <summary>
+        /// Méthode qui retourne l'image décallée en diagonale
+        /// </summary>
         public void DecalageDiagonale()
         {
             //Tableau de pixels utilisé comme tableau temporaire.
@@ -472,13 +475,69 @@ namespace tp3
         }
         #endregion
 
-        #region FLEUR
+        #region Fleur
 
         public void Fleur()
         {
 
         }
 
+        #endregion
+
+        #region Svasitka
+
+
+        /// <summary>
+        /// Méthode qui retourne l'image en Photomaton
+        /// </summary>
+        public void Svasitka()
+        {
+            //Taille du tableaux temporaire
+            Color[,] tabTempo = new Color[this.Largeur, this.Hauteur];
+            //boucle pour le rouge
+            for (int j = 0; j < this.Hauteur; j = j + 2)
+            {
+                for (int i = 0; i < this.Largeur; i = i + 2)
+                {
+                    tabTempo[i / 2, j / 2] = this[i, j];
+                }
+            }
+            //boucle pour le bleu
+            for (int i = 1; i < this.Largeur; i = i + 2)
+            {
+                for (int j = 0; j < this.Hauteur; j = j + 2)
+                {
+                    tabTempo[i / 2 + this.Largeur / 2, j / 2] = this[j, this.Largeur - 1 - i];
+                }
+            }
+            //boucle pour le vert
+            for (int j = 1; j < this.Hauteur; j = j + 2)
+            {
+                for (int i = 0; i < this.Largeur; i = i + 2)
+                {
+                    tabTempo[i / 2, j / 2 + this.Hauteur / 2] = this[this.Hauteur - 1 - j, i];
+                }
+            }
+            //boucle pour le jaune
+            for (int j = 1; j < this.Hauteur; j = j + 2)
+            {
+                for (int i = 1; i < this.Largeur; i = i + 2)
+                {
+
+                    tabTempo[i / 2 + this.Largeur / 2, j / 2 + this.Hauteur / 2] = this[this.Hauteur - 1 - i, this.Largeur - 1 - j];
+
+
+                }
+            }
+            // recopie depuis la colonne de travail
+            for (int i = 0; i < this.Largeur; i++)
+            {
+                for (int j = 0; j < this.Hauteur; j++)
+                {
+                    this[i, j] = tabTempo[i, j];
+                }
+            }
+        }
         #endregion
 
         #endregion
