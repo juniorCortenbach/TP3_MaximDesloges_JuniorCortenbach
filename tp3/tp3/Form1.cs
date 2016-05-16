@@ -178,7 +178,8 @@ namespace tp3
                         this._iteration++;
                         break;
                     case TransformationType.Fleur:
-                        MessageBox.Show(@"En constructions");
+                        this.ImageTransformee.Fleur();
+                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
                         this._iteration++;
                         break;
                     case TransformationType.Svastika:
@@ -289,11 +290,12 @@ namespace tp3
 
                     break;
                 case TransformationType.Fleur:
-                    //En construction
+                    this.ImageTransformee.Fleur();
+                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
 
                     break;
                 case TransformationType.Svastika:
-                    //En construction
+
                     break;
                 default:
                     MessageBox.Show(@"Une erreur s'est produite");

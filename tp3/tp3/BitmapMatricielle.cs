@@ -216,60 +216,8 @@ namespace tp3
 
         #endregion
 
-        #region TRANSFORMATION
+        #region TRANSFORMATIONS
 
-        #region Photomaton
-
-        /// <summary>
-        /// Méthode qui retourne l'image en Photomaton
-        /// </summary>
-        public void Photomaton()
-        {
-            //Taille du tableaux temporaire
-            Color[,] tabTempo = new Color[this.Largeur, this.Hauteur];
-            //boucle pour le rouge
-            for (int j = 0; j < this.Hauteur; j = j + 2)
-            {
-                for (int i = 0; i < this.Largeur; i = i + 2)
-                {
-                    tabTempo[i / 2, j / 2] = this[i, j];
-                }
-            }
-            //boucle pour le bleu
-            for (int i = 1; i < this.Largeur; i = i + 2)
-            {
-                for (int j = 0; j < this.Hauteur; j = j + 2)
-                {
-                    tabTempo[i / 2 + this.Largeur / 2, j / 2] = this[i, j];
-                }
-            }
-            //boucle pour le vert
-            for (int j = 1; j < this.Hauteur; j = j + 2)
-            {
-                for (int i = 0; i < this.Largeur; i = i + 2)
-                {
-                    tabTempo[i / 2, j / 2 + this.Hauteur / 2] = this[i, j];
-                }
-            }
-            //boucle pour le jaune
-            for (int j = 1; j < this.Hauteur; j = j + 2)
-            {
-                for (int i = 1; i < this.Largeur; i = i + 2)
-                {
-                    tabTempo[i / 2 + this.Largeur / 2, j / 2 + this.Hauteur / 2] = this[i, j];
-                }
-            }
-            // recopie depuis la colonne de travail
-            for (int i = 0; i < this.Largeur; i++)
-            {
-                for (int j = 0; j < this.Hauteur; j++)
-                {
-                    this[i, j] = tabTempo[i, j];
-                }
-            }
-        }
-
-        #endregion
 
         #region DécalageHorizontal
 
@@ -475,11 +423,109 @@ namespace tp3
         }
         #endregion
 
+        #region Photomaton
+
+        /// <summary>
+        /// Méthode qui retourne l'image en Photomaton
+        /// </summary>
+        public void Photomaton()
+        {
+            //Taille du tableaux temporaire
+            Color[,] tabTempo = new Color[this.Largeur, this.Hauteur];
+            //boucle pour le rouge
+            for (int j = 0; j < this.Hauteur; j = j + 2)
+            {
+                for (int i = 0; i < this.Largeur; i = i + 2)
+                {
+                    tabTempo[i / 2, j / 2] = this[i, j];
+                }
+            }
+            //boucle pour le bleu
+            for (int i = 1; i < this.Largeur; i = i + 2)
+            {
+                for (int j = 0; j < this.Hauteur; j = j + 2)
+                {
+                    tabTempo[i / 2 + this.Largeur / 2, j / 2] = this[i, j];
+                }
+            }
+            //boucle pour le vert
+            for (int j = 1; j < this.Hauteur; j = j + 2)
+            {
+                for (int i = 0; i < this.Largeur; i = i + 2)
+                {
+                    tabTempo[i / 2, j / 2 + this.Hauteur / 2] = this[i, j];
+                }
+            }
+            //boucle pour le jaune
+            for (int j = 1; j < this.Hauteur; j = j + 2)
+            {
+                for (int i = 1; i < this.Largeur; i = i + 2)
+                {
+                    tabTempo[i / 2 + this.Largeur / 2, j / 2 + this.Hauteur / 2] = this[i, j];
+                }
+            }
+            // recopie depuis la colonne de travail
+            for (int i = 0; i < this.Largeur; i++)
+            {
+                for (int j = 0; j < this.Hauteur; j++)
+                {
+                    this[i, j] = tabTempo[i, j];
+                }
+            }
+        }
+
+        #endregion
+
         #region Fleur
 
         public void Fleur()
         {
+            //Taille du tableaux temporaire
+            Color[,] tabTempo = new Color[this.Largeur, this.Hauteur];
+            //boucle pour le rouge
+            for (int j = 0; j < this.Hauteur; j = j + 2)
+            {
+                for (int i = 0; i < this.Largeur; i = i + 2)
+                {
+                    tabTempo[i / 2, j / 2] = this[i, j];
+                }
+            }
+            //boucle pour le bleu
+            for (int i = 1; i < this.Largeur; i = i + 2)
+            {
+                for (int j = 0; j < this.Hauteur; j = j + 2)
+                {
+                    tabTempo[i / 2 + this.Largeur / 2, j / 2] = this[this.Largeur - 1 - i, j];
+                }
+            }
+            //boucle pour le vert
+            for (int j = 1; j < this.Hauteur; j = j + 2)
+            {
+                for (int i = 0; i < this.Largeur; i = i + 2)
+                {
+                    tabTempo[i / 2, j / 2 + this.Hauteur / 2] = this[i, this.Largeur - 1 - j];
 
+                }
+            }
+            //boucle pour le jaune
+            for (int j = 1; j < this.Hauteur; j = j + 2)
+            {
+                for (int i = 1; i < this.Largeur; i = i + 2)
+                {
+
+                    tabTempo[i / 2 + this.Largeur / 2, j / 2 + this.Hauteur / 2] = this[this.Hauteur - 1 - i, this.Largeur - 1 - j];
+
+
+                }
+            }
+            // recopie depuis la colonne de travail
+            for (int i = 0; i < this.Largeur; i++)
+            {
+                for (int j = 0; j < this.Hauteur; j++)
+                {
+                    this[i, j] = tabTempo[i, j];
+                }
+            }
         }
 
         #endregion
