@@ -126,49 +126,50 @@ namespace tp3
                 //Variable TransformationType qui contient la transformation selectionée
                 TransformationType transformation = (TransformationType)Enum.Parse(typeof(TransformationType), this.cmbTransformation.SelectedItem.ToString());
 
-            switch (transformation)
-            {
-                case TransformationType.MiroirHorizontal:
-                    this.ImageTransformee.MiroirHorizontal();
-                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                    break;
-                case TransformationType.MiroirVertical:
-                    this.ImageTransformee.MiroirVertical();
-                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                    break;
-                case TransformationType.Transposition:
-                    MessageBox.Show(@"En constructions");
-                    break;
-                case TransformationType.DecalageHorizontal:
-                    this.ImageTransformee.DecalageHorizontal();
-                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                    break;
-                case TransformationType.DecalageVertical:
-                    MessageBox.Show(@"En constructions");
-                    break;
-                case TransformationType.DecalageEnDiagonale:
-                    MessageBox.Show(@"En constructions");
-                    break;
-                case TransformationType.Colonnes:
-                    MessageBox.Show(@"En constructions");
-                    break;
-                case TransformationType.Photomaton:
-                    this.ImageTransformee.Photomaton();
-                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                    break;
-                case TransformationType.Boulanger:
-                    MessageBox.Show(@"En constructions");
-                    break;
-                case TransformationType.Fleur:
-                    MessageBox.Show(@"En constructions");
-                    break;
-                case TransformationType.Svastika:
-                    MessageBox.Show(@"En constructions");
-                    break;
-                default:
-                    MessageBox.Show(@"Une erreur s'est produite");
-                    break;
-             }
+                switch (transformation)
+                {
+                    case TransformationType.MiroirHorizontal:
+                        this.ImageTransformee.MiroirHorizontal();
+                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        break;
+                    case TransformationType.MiroirVertical:
+                        this.ImageTransformee.MiroirVertical();
+                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        break;
+                    case TransformationType.Transposition:
+                        MessageBox.Show(@"En constructions");
+                        break;
+                    case TransformationType.DecalageHorizontal:
+                        this.ImageTransformee.DecalageHorizontal();
+                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        break;
+                    case TransformationType.DecalageVertical:
+                        MessageBox.Show(@"En constructions");
+                        break;
+                    case TransformationType.DecalageEnDiagonale:
+                        this.ImageTransformee.DecalageDiagonale();
+                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        break;
+                    case TransformationType.Colonnes:
+                        MessageBox.Show(@"En constructions");
+                        break;
+                    case TransformationType.Photomaton:
+                        this.ImageTransformee.Photomaton();
+                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        break;
+                    case TransformationType.Boulanger:
+                        MessageBox.Show(@"En constructions");
+                        break;
+                    case TransformationType.Fleur:
+                        MessageBox.Show(@"En constructions");
+                        break;
+                    case TransformationType.Svastika:
+                        MessageBox.Show(@"En constructions");
+                        break;
+                    default:
+                        MessageBox.Show(@"Une erreur s'est produite");
+                        break;
+                }
 
             }
 
@@ -205,62 +206,61 @@ namespace tp3
                         MessageBox.Show(@"Veuillez selectionez une transformation");
                     }
                     else
-                    this.chronometre1.Start();
+                        this.chronometre1.Start();
                     break;
             }
 
-     
+
         }
 
         private void chronometre1_Tick(object sender, EventArgs e)
         {
-           
-                        //Variable TransformationType qui contient la transformation selectionée
-                        TransformationType transformation = (TransformationType)Enum.Parse(typeof(TransformationType), this.cmbTransformation.SelectedItem.ToString());
+            //Variable TransformationType qui contient la transformation selectionée
+            TransformationType transformation = (TransformationType)Enum.Parse(typeof(TransformationType), this.cmbTransformation.SelectedItem.ToString());
 
-                        switch (transformation)
-                        {
-                            case TransformationType.MiroirHorizontal:
-                                this.ImageTransformee.MiroirHorizontal();
-                                this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                                break;
-                            case TransformationType.MiroirVertical:
-                                this.ImageTransformee.MiroirVertical();
-                                this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                                break;
-                            case TransformationType.Transposition:
-                                 //En construction        
-                                 break;
-                            case TransformationType.DecalageHorizontal:
-                                this.ImageTransformee.DecalageHorizontal();
-                                this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                                break;
-                            case TransformationType.DecalageVertical:
-                             //En construction
-                                break;
-                            case TransformationType.DecalageEnDiagonale:
-                             //En construction
-                                break;
-                            case TransformationType.Colonnes:
-                               //En construction
-                                break;
-                            case TransformationType.Photomaton:
-                                this.ImageTransformee.Photomaton();
-                                this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                                break;
-                            case TransformationType.Boulanger:
-                               //En construction
-                                break;
-                            case TransformationType.Fleur:
-                              //En construction
-                                break;
-                            case TransformationType.Svastika:
-                             //En construction
-                                 break;
-                            default:
-                                MessageBox.Show(@"Une erreur s'est produite");
-                                break;
-                        }
+            switch (transformation)
+            {
+                case TransformationType.MiroirHorizontal:
+                    this.ImageTransformee.MiroirHorizontal();
+                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                    break;
+                case TransformationType.MiroirVertical:
+                    this.ImageTransformee.MiroirVertical();
+                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                    break;
+                case TransformationType.Transposition:
+                    //En construction        
+                    break;
+                case TransformationType.DecalageHorizontal:
+                    this.ImageTransformee.DecalageHorizontal();
+                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                    break;
+                case TransformationType.DecalageVertical:
+                    //En construction
+                    break;
+                case TransformationType.DecalageEnDiagonale:
+                    //En construction
+                    break;
+                case TransformationType.Colonnes:
+                    //En construction
+                    break;
+                case TransformationType.Photomaton:
+                    this.ImageTransformee.Photomaton();
+                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                    break;
+                case TransformationType.Boulanger:
+                    //En construction
+                    break;
+                case TransformationType.Fleur:
+                    //En construction
+                    break;
+                case TransformationType.Svastika:
+                    //En construction
+                    break;
+                default:
+                    MessageBox.Show(@"Une erreur s'est produite");
+                    break;
+            }
 
         }
     }

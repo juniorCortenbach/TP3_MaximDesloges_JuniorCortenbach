@@ -310,7 +310,7 @@ namespace tp3
 
 
         #endregion
-        
+
         #region DécalageVertical
         /// <summary>
         /// Méthode qui retourne l'image décallée verticalment 
@@ -346,7 +346,77 @@ namespace tp3
 
         }
         #endregion
-        
+
+        #region DECALAGEDIAGONALE
+
+        public void DecalageDiagonale()
+        {
+            //Tableau de pixels utilisé comme tableau temporaire.
+            Color[,] tabPixels = new Color[this.Largeur, this.Hauteur];
+
+            //Pour chaque colonne.
+            for (int j = 0; j < this.Hauteur; j++)
+            {
+                //Pour chaque rangée.
+                //Décalage des pixels dans la rangée de travail.
+                for (int i = 0; i < this.Largeur; i++)
+                {
+                    if (i == 0)
+                    {
+                        //Le premier pixel en largeur prend la couleur
+                        //du dernier pixel en largeur sur la même hauteur.
+                        tabPixels[i, j] = this[this.Largeur - 1, j];
+                    }
+                    else
+                    {
+                        //Le pixel lu prend la couleur du
+                        //pixel précédent en largeur sur la même hauteur.
+                        tabPixels[i, j] = this[i - 1, j];
+                    }
+                }
+
+                //Pour toute la largeur de l'image.
+                for (int i = 0; i < this.Largeur; i++)
+                {
+                    //Affectation de la colonne de pixels modifiés
+                    //à l'image.
+                    this[i, j] = tabPixels[i, j];
+                }
+            }
+
+            //Pour chaque colonne.
+            for (int i = 0; i < this.Largeur; i++)
+            {
+                //Pour chaque rangée.
+                //Décalage des pixels dans la colonne de travail.
+                for (int j = 0; j < this.Hauteur; j++)
+                {
+                    if (j == 0)
+                    {
+                        //Si le pixel lu est le premier pixel en hauteur,
+                        //Sa couleur sera celle du dernier pixel en hauteur. 
+                        tabPixels[i, j] = this[i, this.Hauteur - 1];
+                    }
+                    else
+                    {
+                        //La couleur du pixel est celle du pixel précédent
+                        //en hauteur.
+                        tabPixels[i, j] = this[i, j - 1];
+                    }
+                }
+
+                //Affectation de la rangée de pixels modifiés à l'image.
+                for (int j = 0; j < this.Hauteur; j++)
+                {
+                    this[i, j] = tabPixels[i, j];
+                }
+            }
+
+        }
+
+
+        #endregion
+
         #region MiroirHorizontal
         /// <summary>
         /// Méthode qui retourne limage transformé en miroir horizontal
@@ -400,9 +470,18 @@ namespace tp3
             }
 
         }
-                    #endregion
+        #endregion
 
-                #endregion
+        #region FLEUR
+
+        public void Fleur()
+        {
+
+        }
+
+        #endregion
+
+        #endregion
 
         #endregion
     }
