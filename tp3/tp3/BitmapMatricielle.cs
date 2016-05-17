@@ -143,7 +143,68 @@ namespace tp3
         // TODO : Créer toutes les méthodes pour les transformations bijectives (une étape)
         // ainsi que pour les effets niveau de gris et sépia.
 
-        #region #EFFECTS
+        #region COMPARAISON
+
+        /// <summary>
+        /// </summary>
+        /// <param name="imageInital"></param>
+        /// <param name="imageAComparer"></param>
+        /// <returns>Retourne un bool si les images sont identiques</returns>
+        public static bool operator ==(BitmapMatricielle imageInital, BitmapMatricielle imageAComparer)
+        {
+            if (Object.ReferenceEquals(imageInital, imageAComparer))
+            {
+                return true;
+            }
+
+            for (int i = 0; i < imageInital.Largeur; i++)
+            {
+                for (int j = 0; j < imageInital.Hauteur; j++)
+                {
+                    if (imageInital[i, j] != imageAComparer[i, j])
+                        return false;
+
+                }
+            }
+            return true;
+        }
+
+
+        /// <summary>
+        /// Permet de vérifier si deux objets de type Fraction sont égaux.
+        /// </summary>
+        /// <param name="obj">Objet de type Fraction à comparer avec l'object courant</param>
+        /// <returns>true si les deux objets sont égaux; false, autrement.</returns>
+        /// <remarks>
+        /// Redéfinition de la méthode de la classe Object qui compare les références des objets uniquement.
+        /// Note: Lorsqu'on définit l'opérateur d'égalité (==), on doit redéfinir la méthode "Equals". 
+        /// </remarks>
+        public override bool Equals(Object obj)
+        {
+            // Est-ce que "obj" est du type Fraction.
+            if (obj.GetType() == typeof(BitmapMatricielle))
+                return this == (BitmapMatricielle)obj;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Surcharge de l'opérateur d'inégalité (!=).
+        /// </summary>
+        /// <param name="fractionGauche">Fraction à gauche de l'opérateur.</param>
+        /// <param name="fractionDroite">Fraction à droite de l'opérateur.</param>
+        /// <returns>true si les deux fractions sont différentes; false, autrement.</returns>
+        public static bool operator !=(BitmapMatricielle imageInital, BitmapMatricielle imageAComparer)
+        {
+            // Retourne l'inverse de l'opérateur d'égalité.
+            return !(imageInital == imageAComparer);
+        }
+
+
+
+        #endregion
+
+        #region EFFECTS
 
         #region  NiveauDeGris
 

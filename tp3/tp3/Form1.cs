@@ -137,14 +137,14 @@ namespace tp3
                 switch (transformation)
                 {
                     case TransformationType.MiroirHorizontal:
-                        this.ImageTransformee.MiroirHorizontal();
-                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                        this._iteration++;
+                            this.ImageTransformee.MiroirHorizontal();
+                            this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                            this._iteration++;
                         break;
                     case TransformationType.MiroirVertical:
-                        this.ImageTransformee.MiroirVertical();
-                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                        this._iteration++;
+                            this.ImageTransformee.MiroirVertical();
+                            this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                            this._iteration++;
                         break;
                     case TransformationType.Transposition:
                         MessageBox.Show(@"En constructions");
@@ -156,7 +156,8 @@ namespace tp3
                         this._iteration++;
                         break;
                     case TransformationType.DecalageVertical:
-                        MessageBox.Show(@"En constructions");
+                        this.ImageTransformee.DecalageVertical();
+                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
                         this._iteration++;
                         break;
                     case TransformationType.DecalageEnDiagonale:
@@ -178,9 +179,19 @@ namespace tp3
                         this._iteration++;
                         break;
                     case TransformationType.Fleur:
-                        this.ImageTransformee.Fleur();
-                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                        this._iteration++;
+                        if (this.ImageTransformee.Hauteur > this.ImageTransformee.Largeur)
+                        {
+                            MessageBox.Show(
+                                @"Les dimensions de l'image doivent être identiques pour effectuer une transformation de Svastiska",
+                                @"Erreur : Opération impossible",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            this.ImageTransformee.Fleur();
+                            this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                            this._iteration++;
+                        }
                         break;
                     case TransformationType.Svastika:
                         if (this.ImageTransformee.Hauteur > this.ImageTransformee.Largeur)
@@ -224,6 +235,8 @@ namespace tp3
 
         private void btnAvancementContinue_Click(object sender, EventArgs e)
         {
+
+
             switch (this.txtDuree.Text)
             {
                 case "":
@@ -243,6 +256,7 @@ namespace tp3
             }
 
 
+
         }
 
         private void chronometre1_Tick(object sender, EventArgs e)
@@ -253,55 +267,69 @@ namespace tp3
 
             this._iteration++;
 
-            switch (transformation)
+
+            if (this.ImageATransformerBitmap == this.ImageTransformee)
             {
-                case TransformationType.MiroirHorizontal:
-                    this.ImageTransformee.MiroirHorizontal();
-                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                    break;
-                case TransformationType.MiroirVertical:
-                    this.ImageTransformee.MiroirVertical();
-                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                    break;
-                case TransformationType.Transposition:
-                    //En construction        
-                    break;
-                case TransformationType.DecalageHorizontal:
-                    this.ImageTransformee.DecalageHorizontal();
-                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                switch (transformation)
+                {
+                    case TransformationType.MiroirHorizontal:
+                        this.ImageTransformee.MiroirHorizontal();
+                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        break;
+                    case TransformationType.MiroirVertical:
+                        this.ImageTransformee.MiroirVertical();
+                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        break;
+                    case TransformationType.Transposition:
+                        //En construction        
+                        break;
+                    case TransformationType.DecalageHorizontal:
+                        this.ImageTransformee.DecalageHorizontal();
+                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
 
-                    break;
-                case TransformationType.DecalageVertical:
-                    //En construction
-                    break;
-                case TransformationType.DecalageEnDiagonale:
-                    //En construction
-                    break;
-                case TransformationType.Colonnes:
-                    //En construction
-                    break;
-                case TransformationType.Photomaton:
-                    this.ImageTransformee.Photomaton();
-                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        break;
+                    case TransformationType.DecalageVertical:
+                        //En construction
+                        break;
+                    case TransformationType.DecalageEnDiagonale:
+                        //En construction
+                        break;
+                    case TransformationType.Colonnes:
+                        //En construction
+                        break;
+                    case TransformationType.Photomaton:
+                        this.ImageTransformee.Photomaton();
+                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
 
-                    break;
-                case TransformationType.Boulanger:
-                    //En construction
+                        break;
+                    case TransformationType.Boulanger:
+                        //En construction
 
-                    break;
-                case TransformationType.Fleur:
-                    this.ImageTransformee.Fleur();
-                    this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        break;
+                    case TransformationType.Fleur:
+                        if (this.ImageTransformee.Hauteur > this.ImageTransformee.Largeur)
+                        {
+                            MessageBox.Show(@"Les dimensions de l'image doivent être identiques pour effectuer une transformation de Svastiska", @"Erreur : Opération impossible",
+    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            this.ImageTransformee.Fleur();
+                            this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        }
+                        break;
+                    case TransformationType.Svastika:
 
-                    break;
-                case TransformationType.Svastika:
-
-                    break;
-                default:
-                    MessageBox.Show(@"Une erreur s'est produite");
-                    break;
+                        break;
+                    default:
+                        MessageBox.Show(@"Une erreur s'est produite");
+                        break;
+                }
             }
-
+            else
+            {
+                this.chronometre1.Stop();
+            }
 
         }
 
