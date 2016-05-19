@@ -166,7 +166,8 @@ namespace tp3
                         this._iteration++;
                         break;
                     case TransformationType.Colonnes:
-                        MessageBox.Show(@"En constructions");
+                        this.ImageTransformee.Colone();
+                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
                         this._iteration++;
                         break;
                     case TransformationType.Photomaton:

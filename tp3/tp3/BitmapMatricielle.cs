@@ -134,6 +134,7 @@ namespace tp3
                 this.ImageBitmap.SetPixel(i, j, value);
             }
         }
+
         // TODO : Ajouter un indexeur [i, j] pour accéder et modifier les pixels de l'image (i = y, j = x).
 
         #region MÉTHODES ET OPÉRATEURS
@@ -182,8 +183,8 @@ namespace tp3
         public override bool Equals(Object obj)
         {
             // Est-ce que "obj" est du type Fraction.
-            if (obj.GetType() == typeof(BitmapMatricielle))
-                return this == (BitmapMatricielle)obj;
+            if (obj.GetType() == typeof (BitmapMatricielle))
+                return this == (BitmapMatricielle) obj;
             else
                 return false;
         }
@@ -226,7 +227,7 @@ namespace tp3
                     //Prend la couleur de chaque pixel
                     Color couleur = this[i, j];
                     //Prend le rouge le vert et le bleu de chaque pixel et y applique une transformation
-                    byte ng = (byte)Math.Round(couleur.R * 0.299 + couleur.G * 0.587 + couleur.B * 0.114);
+                    byte ng = (byte) Math.Round(couleur.R*0.299 + couleur.G*0.587 + couleur.B*0.114);
 
 
                     //La couleur final est stoxcker dans la variable
@@ -238,6 +239,7 @@ namespace tp3
             //Retourne la nouvelle image transformée 
             return this.ImageBitmap;
         }
+
         #endregion
 
         #region Sepia
@@ -258,9 +260,9 @@ namespace tp3
                     //Prend la couleur de chaque pixel
                     Color couleur = this[i, j];
                     ////Prend le rouge le vert et le bleu de chaque pixel et y applique une transformation
-                    byte r = (byte)(Math.Min(couleur.R * 0.393 + couleur.G * 0.769 + couleur.B * 0.189, 255));
-                    byte v = (byte)(Math.Min(couleur.R * 0.349 + couleur.G * 0.686 + couleur.B * 0.168, 255));
-                    byte b = (byte)(Math.Min(couleur.R * 0.272 + couleur.G * 0.534 + couleur.B * 0.131, 255));
+                    byte r = (byte) (Math.Min(couleur.R*0.393 + couleur.G*0.769 + couleur.B*0.189, 255));
+                    byte v = (byte) (Math.Min(couleur.R*0.349 + couleur.G*0.686 + couleur.B*0.168, 255));
+                    byte b = (byte) (Math.Min(couleur.R*0.272 + couleur.G*0.534 + couleur.B*0.131, 255));
 
 
                     //La couleur final est stoxcker dans la variable
@@ -321,6 +323,7 @@ namespace tp3
         #endregion
 
         #region DécalageVertical
+
         /// <summary>
         /// Méthode qui retourne l'image décallée verticalment 
         /// </summary>
@@ -354,6 +357,7 @@ namespace tp3
             }
 
         }
+
         #endregion
 
         #region DécalageDiagonale
@@ -430,13 +434,14 @@ namespace tp3
         #endregion
 
         #region MiroirHorizontal
+
         /// <summary>
         /// Méthode qui retourne limage transformé en miroir horizontal
         /// </summary>
         public void MiroirHorizontal()
         {
             //Pour chaque colonne.
-            for (int i = 0; i < this.Largeur / 2; i++)
+            for (int i = 0; i < this.Largeur/2; i++)
             {
                 //Pour chaque rangée.
                 for (int j = 0; j < this.Hauteur; j++)
@@ -454,6 +459,7 @@ namespace tp3
             }
 
         }
+
         #endregion
 
         #region MiroirVertical
@@ -467,7 +473,7 @@ namespace tp3
             for (int j = 0; j < this.Hauteur; j++)
             {
                 //Pour chaque rangée.
-                for (int i = 0; i < this.Largeur / 2; i++)
+                for (int i = 0; i < this.Largeur/2; i++)
                 {
                     //Affecte la couleur du premier pixel de la largeur à une variable temporaire.
                     Color pixel = this[j, i];
@@ -482,6 +488,7 @@ namespace tp3
             }
 
         }
+
         #endregion
 
         #region Photomaton
@@ -498,7 +505,7 @@ namespace tp3
             {
                 for (int i = 0; i < this.Largeur; i = i + 2)
                 {
-                    tabTempo[i / 2, j / 2] = this[i, j];
+                    tabTempo[i/2, j/2] = this[i, j];
                 }
             }
             //boucle pour le bleu
@@ -506,7 +513,7 @@ namespace tp3
             {
                 for (int j = 0; j < this.Hauteur; j = j + 2)
                 {
-                    tabTempo[i / 2 + this.Largeur / 2, j / 2] = this[i, j];
+                    tabTempo[i/2 + this.Largeur/2, j/2] = this[i, j];
                 }
             }
             //boucle pour le vert
@@ -514,7 +521,7 @@ namespace tp3
             {
                 for (int i = 0; i < this.Largeur; i = i + 2)
                 {
-                    tabTempo[i / 2, j / 2 + this.Hauteur / 2] = this[i, j];
+                    tabTempo[i/2, j/2 + this.Hauteur/2] = this[i, j];
                 }
             }
             //boucle pour le jaune
@@ -522,7 +529,7 @@ namespace tp3
             {
                 for (int i = 1; i < this.Largeur; i = i + 2)
                 {
-                    tabTempo[i / 2 + this.Largeur / 2, j / 2 + this.Hauteur / 2] = this[i, j];
+                    tabTempo[i/2 + this.Largeur/2, j/2 + this.Hauteur/2] = this[i, j];
                 }
             }
             // recopie depuis la colonne de travail
@@ -548,7 +555,7 @@ namespace tp3
             {
                 for (int i = 0; i < this.Largeur; i = i + 2)
                 {
-                    tabTempo[i / 2, j / 2] = this[i, j];
+                    tabTempo[i/2, j/2] = this[i, j];
                 }
             }
             //boucle pour le bleu
@@ -556,7 +563,7 @@ namespace tp3
             {
                 for (int j = 0; j < this.Hauteur; j = j + 2)
                 {
-                    tabTempo[i / 2 + this.Largeur / 2, j / 2] = this[this.Largeur - 1 - i, j];
+                    tabTempo[i/2 + this.Largeur/2, j/2] = this[this.Largeur - 1 - i, j];
                 }
             }
             //boucle pour le vert
@@ -564,7 +571,7 @@ namespace tp3
             {
                 for (int i = 0; i < this.Largeur; i = i + 2)
                 {
-                    tabTempo[i / 2, j / 2 + this.Hauteur / 2] = this[i, this.Largeur - 1 - j];
+                    tabTempo[i/2, j/2 + this.Hauteur/2] = this[i, this.Largeur - 1 - j];
 
                 }
             }
@@ -574,7 +581,8 @@ namespace tp3
                 for (int i = 1; i < this.Largeur; i = i + 2)
                 {
 
-                    tabTempo[i / 2 + this.Largeur / 2, j / 2 + this.Hauteur / 2] = this[this.Hauteur - 1 - i, this.Largeur - 1 - j];
+                    tabTempo[i/2 + this.Largeur/2, j/2 + this.Hauteur/2] =
+                        this[this.Hauteur - 1 - i, this.Largeur - 1 - j];
 
 
                 }
@@ -606,7 +614,7 @@ namespace tp3
             {
                 for (int i = 0; i < this.Largeur; i = i + 2)
                 {
-                    tabTempo[i / 2, j / 2] = this[i, j];
+                    tabTempo[i/2, j/2] = this[i, j];
                 }
             }
             //boucle pour le bleu
@@ -614,7 +622,7 @@ namespace tp3
             {
                 for (int j = 0; j < this.Hauteur; j = j + 2)
                 {
-                    tabTempo[i / 2 + this.Largeur / 2, j / 2] = this[j, this.Largeur - 1 - i];
+                    tabTempo[i/2 + this.Largeur/2, j/2] = this[j, this.Largeur - 1 - i];
                 }
             }
             //boucle pour le vert
@@ -622,7 +630,7 @@ namespace tp3
             {
                 for (int i = 0; i < this.Largeur; i = i + 2)
                 {
-                    tabTempo[i / 2, j / 2 + this.Hauteur / 2] = this[this.Hauteur - 1 - j, i];
+                    tabTempo[i/2, j/2 + this.Hauteur/2] = this[this.Hauteur - 1 - j, i];
                 }
             }
             //boucle pour le jaune
@@ -631,7 +639,8 @@ namespace tp3
                 for (int i = 1; i < this.Largeur; i = i + 2)
                 {
 
-                    tabTempo[i / 2 + this.Largeur / 2, j / 2 + this.Hauteur / 2] = this[this.Hauteur - 1 - i, this.Largeur - 1 - j];
+                    tabTempo[i/2 + this.Largeur/2, j/2 + this.Hauteur/2] =
+                        this[this.Hauteur - 1 - i, this.Largeur - 1 - j];
 
 
                 }
@@ -645,10 +654,40 @@ namespace tp3
                 }
             }
         }
+
+        #endregion
+
+        #region Colone
+
+        /// <summary>
+        /// Méthode qui retourne l'image en colne
+        /// </summary>
+        public void Colone()
+        {
+            //Tablau temporaire 
+            BitmapMatricielle imgTempo = new BitmapMatricielle(new Bitmap(this.ImageBitmap));
+
+            for (int j = 0; j < this.Hauteur; j++)
+            {
+                for (int i = 0; i < this.Largeur; i = i + 2)
+                {
+                    if (i != 0)
+                        this[i, j] = imgTempo[i/2, j];
+                }
+            }
+            for (int j = 0; j < this.Hauteur; j++)
+            {
+                for (int i = 1; i < this.Largeur; i = i + 2)
+                {
+                    this[i, j] = imgTempo[((this.Largeur) + (i - 1))/2, j];
+                }
+            }
+        }
         #endregion
 
         #endregion
 
         #endregion
     }
+
 }
