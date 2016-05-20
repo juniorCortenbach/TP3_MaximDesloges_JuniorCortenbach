@@ -237,6 +237,7 @@
             this.btnAvencer.Size = new System.Drawing.Size(38, 46);
             this.btnAvencer.TabIndex = 17;
             this.btnAvencer.TabStop = false;
+            this.btnAvencer.Click += new System.EventHandler(this.btnAvencer_Click_1);
             // 
             // btnRetour
             // 

@@ -39,7 +39,8 @@ namespace tp3
         public Bitmap ImageBitmap
         {
             get { return this._imageBitmap; }
-            set { this._imageBitmap = value; }
+            set
+            { this._imageBitmap = value; }
         }
 
         /// <summary>
@@ -48,6 +49,15 @@ namespace tp3
         public int Hauteur
         {
             get { return this._imageBitmap.Height; }
+            set
+            {
+                if (value > 512)
+                    throw new ArgumentOutOfRangeException("L'image ne doit pas avoir une dimension" +
+                        "plus grande que la taille du pictureBox");
+                if (value == 0)
+                    throw new ArgumentNullException(null, "La hauteur ne doit pas être nulle.");
+                this.Hauteur = value;
+            }
         }
 
         /// <summary>
@@ -56,6 +66,15 @@ namespace tp3
         public int Largeur
         {
             get { return this._imageBitmap.Width; }
+            set
+            {
+                if (value > 512)
+                    throw new ArgumentOutOfRangeException("L'image ne doit pas avoir une dimension" +
+                        "plus grande que la taille du pictureBox");
+                if (value == 0)
+                    throw new ArgumentNullException(null, "La hauteur ne doit pas être nulle.");
+                this.Hauteur = value;
+            }
         }
 
         #endregion
@@ -135,14 +154,7 @@ namespace tp3
             }
         }
 
-        // TODO : Ajouter un indexeur [i, j] pour accéder et modifier les pixels de l'image (i = y, j = x).
-
         #region MÉTHODES ET OPÉRATEURS
-
-        // TODO : Surcharger les opérateurs == et != ainsi que de la méthode "Equals".
-
-        // TODO : Créer toutes les méthodes pour les transformations bijectives (une étape)
-        // ainsi que pour les effets niveau de gris et sépia.
 
         #region COMPARAISON
 
@@ -150,14 +162,16 @@ namespace tp3
         /// </summary>
         /// <param name="imageInital"></param>
         /// <param name="imageAComparer"></param>
-        /// <returns>Retourne un bool si les images sont identiques</returns>
+        /// <returns>Retourne vrai si les images sont identiques</returns>
         public static bool operator ==(BitmapMatricielle imageInital, BitmapMatricielle imageAComparer)
         {
+            //Compare les deux images.
             if (Object.ReferenceEquals(imageInital, imageAComparer))
             {
                 return true;
             }
 
+            //Compare les deux images pixel par pixel.
             for (int i = 0; i < imageInital.Largeur; i++)
             {
                 for (int j = 0; j < imageInital.Hauteur; j++)
@@ -182,7 +196,7 @@ namespace tp3
         /// </remarks>
         public override bool Equals(Object obj)
         {
-            // Est-ce que "obj" est du type Fraction.
+            // Est-ce que "obj" est du type BitmapMatricielle.
             if (obj.GetType() == typeof (BitmapMatricielle))
                 return this == (BitmapMatricielle) obj;
             else
@@ -194,16 +208,15 @@ namespace tp3
         /// </summary>
         /// <param name="fractionGauche">Fraction à gauche de l'opérateur.</param>
         /// <param name="fractionDroite">Fraction à droite de l'opérateur.</param>
-        /// <returns>true si les deux fractions sont différentes; false, autrement.</returns>
+        /// <returns>true si les deux images sont différentes; false, autrement.</returns>
         public static bool operator !=(BitmapMatricielle imageInital, BitmapMatricielle imageAComparer)
         {
             // Retourne l'inverse de l'opérateur d'égalité.
             return !(imageInital == imageAComparer);
         }
 
-
-
         #endregion
+        
 
         #region EFFECTS
 
@@ -213,30 +226,31 @@ namespace tp3
         /// </summary>
         /// <param name="imageChargee"></param>
         /// <param name="iteration"></param>
-        /// <returns>Retourn l'image transfomé en Niveau de gris</returns>
+        /// <returns>Retourne l'image transfomée sur un niveau de gris supérieur.</returns>
         public Bitmap NiveauDeGris(Bitmap imageChargee, int iteration)
         {
 
-
-            //Pour chaque colonne.
+            //Pour chaque rangée.
             for (int i = 0; i < this.Largeur; i++)
             {
-                //Pour chaque rangée.
+                //Pour chaque colonne.
                 for (int j = 0; j < this.Hauteur; j++)
                 {
-                    //Prend la couleur de chaque pixel
+                    //Affecte la couleur de chaque pixel.
                     Color couleur = this[i, j];
-                    //Prend le rouge le vert et le bleu de chaque pixel et y applique une transformation
+
+                    //Prend le rouge, le vert et le bleu de chaque pixel et y applique
+                    //la transformation désirée.
                     byte ng = (byte) Math.Round(couleur.R*0.299 + couleur.G*0.587 + couleur.B*0.114);
 
-
-                    //La couleur final est stoxcker dans la variable
+                    //Affectation de la couleur finale.
                     Color nouvelleCouleur = Color.FromArgb(ng, ng, ng);
-                    //Chaque pixel et afficher de nouveau avec sa nouvelle couleur
+
+                    //La couleur finale est affectée à chaque pixel.
                     this[i, j] = nouvelleCouleur;
                 }
             }
-            //Retourne la nouvelle image transformée 
+            //Retourne la nouvelle image transformée.
             return this.ImageBitmap;
         }
 
@@ -248,7 +262,7 @@ namespace tp3
         /// </summary>
         /// <param name="imageChargee"></param>
         /// <param name="iteration"></param>
-        /// <returns>Retourn l'image transfomé en Sepia</returns>
+        /// <returns>Retourne l'image transfomée en Sepia</returns>
         public Bitmap Sepia(Bitmap imageChargee, int iteration)
         {
             //Pour chaque colonne.
@@ -257,17 +271,17 @@ namespace tp3
                 //Pour chaque rangée.
                 for (int j = 0; j < this.Hauteur; j++)
                 {
-                    //Prend la couleur de chaque pixel
+                    //Affecte la couleur de chaque pixel.
                     Color couleur = this[i, j];
-                    ////Prend le rouge le vert et le bleu de chaque pixel et y applique une transformation
+                    //Prend le rouge, le vert et le bleu de chaque pixel et y applique une transformation.
                     byte r = (byte) (Math.Min(couleur.R*0.393 + couleur.G*0.769 + couleur.B*0.189, 255));
                     byte v = (byte) (Math.Min(couleur.R*0.349 + couleur.G*0.686 + couleur.B*0.168, 255));
                     byte b = (byte) (Math.Min(couleur.R*0.272 + couleur.G*0.534 + couleur.B*0.131, 255));
 
-
-                    //La couleur final est stoxcker dans la variable
+                    //La couleur finale est stockée dans la variable.
                     Color nouvelleCouleur = Color.FromArgb(r, v, b);
-                    //Chaque pixel et afficher de nouveau avec sa nouvelle couleur
+
+                    //Chaque pixel est affiché de nouveau avec sa nouvelle couleur.
                     this[i, j] = nouvelleCouleur;
                 }
             }
@@ -281,64 +295,109 @@ namespace tp3
 
         #region TRANSFORMATIONS
 
-
-        #region DécalageHorizontal
+        #region MiroirHorizontal
 
         /// <summary>
-        ///  Méthode qui retourne l'image décallée horizontalment
+        /// Méthode qui retourne l'image transformé en miroir horizontal (inversion haut-bas).
         /// </summary>
-        public void DecalageHorizontal()
+        public void MiroirHorizontal()
         {
-            //Tablau temporaire de pixel en column
-            Color[] pixelColumn = new Color[this.Hauteur];
-
             //Pour chaque colonne.
-            for (int i = 0; i < this.Largeur; i++)
+            for (int i = 0; i < this.Largeur / 2; i++)
             {
                 //Pour chaque rangée.
-                // Décalage des pixels dans la colonne de travail
-
                 for (int j = 0; j < this.Hauteur; j++)
                 {
-                    if (j == 0)
-                    {
-                        pixelColumn[j] = this[i, this.Hauteur - 1];
-                    }
-                    else
-                    {
-                        pixelColumn[j] = this[i, j - 1];
-                    }
+                    //Affecte la couleur du premier pixel de la largeur à une variable temporaire.
+                    Color pixel = this[i, j];
+
+                    //Affecte la couleur du dernier pixel au premier pixel de la largeur.
+                    this[i, j] = this[this.Largeur - 1 - i, j];
+
+                    //Affecte la couleur du premier pixel au dernier pixel de la largeur.
+                    this[this.Largeur - 1 - i, j] = pixel;
                 }
 
-                // recopie depuis la colonne de travail
-                for (int j = 0; j < this.Hauteur; j++)
-                {
-                    this[i, j] = pixelColumn[j];
-                }
             }
 
         }
 
+        #endregion
+
+        #region MiroirVertical
+
+        /// <summary>
+        /// Méthode qui retourne l'image transformée en miroir vertical (inversion haut-bas).
+        /// </summary>
+        public void MiroirVertical()
+        {
+            //Pour chaque colonne.
+            for (int j = 0; j < this.Hauteur; j++)
+            {
+                //Pour chaque rangée.
+                for (int i = 0; i < this.Largeur / 2; i++)
+                {
+                    //Affecte la couleur du premier pixel de la largeur à une variable temporaire.
+                    Color pixel = this[j, i];
+
+                    //Affecte la couleur du dernier pixel au premier pixel de la largeur.
+                    this[j, i] = this[j, this.Largeur - 1 - i];
+
+                    //Affecte la couleur du premier pixel au dernier pixel de la largeur.
+                    this[j, this.Largeur - 1 - i] = pixel;
+                }
+
+            }
+
+        }
 
         #endregion
 
-        #region DécalageVertical
+        #region Transposition
+
+        //Transposition selon la diagonale qui part du coin supérieur gauche au
+        //coin inférieur droit (selon la diagonale).
+        public void Transposition()
+        {
+            //Pour chaque rangée.
+            for (int x = 0; x < this.Largeur; x++)
+            {
+                //Pour chaque colonne.
+                for (int y = x; y < this.Hauteur; y++)
+                {
+                    //Affecte la couleur du premier pixel de la largeur à une variable temporaire.
+                    Color pixel = this[x, y];
+
+                    //Inverse les pixels sur les deux axes.
+                    this[x, y] = this[y, x];
+
+                    //Affecte la couleur du pixel lu aux coordonées inversées.
+                    this[y, x] = pixel;
+
+                }
+
+            }
+        }
+        #endregion
+
+        #region DécalageHorizontal
 
         /// <summary>
-        /// Méthode qui retourne l'image décallée verticalment 
+        ///  Méthode qui retourne l'image décalée horizontalment.
         /// </summary>
-        public void DecalageVertical()
+        public void DecalageHorizontal()
         {
-            //Tablau temporaire de pixel en rangee 
+
+            //Tableau temporaire de pixels en rangée. 
             Color[] pixelRangee = new Color[this.Largeur];
 
             //Pour chaque rangée.
             for (int j = 0; j < this.Hauteur; j++)
             {
-                //Pour chaque rangée.
-                // Décalage des pixels dans la rangée de travail
+                //Pour chaque colonne.
                 for (int i = 0; i < this.Largeur; i++)
                 {
+                    //Décalage des pixels dans la rangée de travail.
                     if (i == 0)
                     {
                         pixelRangee[i] = this[this.Largeur - 1, j];
@@ -349,34 +408,75 @@ namespace tp3
                     }
                 }
 
-                // recopie depuis la rangee de travail
+                //Affecte les pixels de la rangée de travail à l'image originel.
                 for (int i = 0; i < this.Largeur; i++)
                 {
                     this[i, j] = pixelRangee[i];
                 }
+
+            }
+
+            }
+
+
+            #endregion
+
+        #region DécalageVertical
+
+            /// <summary>
+            /// Méthode qui retourne l'image décalée verticalement.
+            /// </summary>
+            public void DecalageVertical()
+            {
+            //Tableau temporaire de pixels en colonne.
+            Color[] pixelColumn = new Color[this.Hauteur];
+
+            //Pour chaque colonne.
+            for (int i = 0; i < this.Largeur; i++)
+            {
+                //Pour chaque rangée.
+                for (int j = 0; j < this.Hauteur; j++)
+                {
+                    //Décalage des pixels dans la colonne de travail.
+                    if (j == 0)
+                    {
+                        pixelColumn[j] = this[i, this.Hauteur - 1];
+                    }
+                    else
+                    {
+                        pixelColumn[j] = this[i, j - 1];
+                    }
+                }
+
+                //Affecte les pixels de la colonne à l'image d'origine.
+                for (int j = 0; j < this.Hauteur; j++)
+                {
+                    this[i, j] = pixelColumn[j];
+                }
+
             }
 
         }
 
         #endregion
 
-        #region DécalageDiagonale
+        #region Décalage diagonale
 
         /// <summary>
-        /// Méthode qui retourne l'image décallée en diagonale
+        /// Méthode qui retourne l'image décalée en diagonale.
         /// </summary>
         public void DecalageDiagonale()
         {
             //Tableau de pixels utilisé comme tableau temporaire.
             Color[,] tabPixels = new Color[this.Largeur, this.Hauteur];
 
-            //Pour chaque colonne.
+            //Pour chaque rangée.
             for (int j = 0; j < this.Hauteur; j++)
             {
-                //Pour chaque rangée.
-                //Décalage des pixels dans la rangée de travail.
+                //Pour chaque colonne.
                 for (int i = 0; i < this.Largeur; i++)
                 {
+                    //Décalage des pixels dans la rangée de travail.
                     if (i == 0)
                     {
                         //Le premier pixel en largeur prend la couleur
@@ -421,7 +521,7 @@ namespace tp3
                     }
                 }
 
-                //Affectation de la rangée de pixels modifiés à l'image.
+                //Affectation de la matrice de pixels modifiés à l'image.
                 for (int j = 0; j < this.Hauteur; j++)
                 {
                     this[i, j] = tabPixels[i, j];
@@ -433,74 +533,48 @@ namespace tp3
 
         #endregion
 
-        #region MiroirHorizontal
+        #region Colonnes
 
         /// <summary>
-        /// Méthode qui retourne limage transformé en miroir horizontal
+        /// Méthode qui retourne l'image en colonnes (dimensions paires).
         /// </summary>
-        public void MiroirHorizontal()
+        public void Colonnes()
         {
-            //Pour chaque colonne.
-            for (int i = 0; i < this.Largeur/2; i++)
-            {
-                //Pour chaque rangée.
-                for (int j = 0; j < this.Hauteur; j++)
-                {
-                    //Affecte la couleur du premier pixel de la largeur à une variable temporaire.
-                    Color pixel = this[i, j];
+            //Clone de l'image initiale.
+            BitmapMatricielle imgTempo = new BitmapMatricielle(new Bitmap(this.ImageBitmap));
 
-                    //Affecte la couleur du dernier pixel au premier pixel de la largeur.
-                    this[i, j] = this[this.Largeur - 1 - i, j];
-
-                    //Affecte la couleur du premier pixel au dernier pixel de la largeur.
-                    this[this.Largeur - 1 - i, j] = pixel;
-                }
-
-            }
-
-        }
-
-        #endregion
-
-        #region MiroirVertical
-
-        /// <summary>
-        /// Méthode qui retourne limage transformé en miroir Vertical
-        /// </summary>
-        public void MiroirVertical()
-        {
-            //Pour chaque colonne.
+            //Boucles qui ne reprennent que la moitié des pixels sur la largeur.
             for (int j = 0; j < this.Hauteur; j++)
             {
-                //Pour chaque rangée.
-                for (int i = 0; i < this.Largeur/2; i++)
+                for (int i = 0; i < this.Largeur; i = i + 2)
                 {
-                    //Affecte la couleur du premier pixel de la largeur à une variable temporaire.
-                    Color pixel = this[j, i];
-
-                    //Affecte la couleur du dernier pixel au premier pixel de la largeur.
-                    this[j, i] = this[j, this.Largeur - 1 - i];
-
-                    //Affecte la couleur du premier pixel au dernier pixel de la largeur.
-                    this[j, this.Largeur - 1 - i] = pixel;
+                    if (i != 0)
+                        this[i, j] = imgTempo[i / 2, j];
                 }
-
             }
 
+            //Boucles qui affectent les derniers pixels sur la largeur aux premiers pixels.
+            for (int j = 0; j < this.Hauteur; j++)
+            {
+                for (int i = 1; i < this.Largeur; i = i + 2)
+                {
+                    this[i, j] = imgTempo[((this.Largeur) + (i - 1)) / 2, j];
+                }
+            }
         }
-
         #endregion
 
         #region Photomaton
 
         /// <summary>
-        /// Méthode qui retourne l'image en Photomaton
+        /// Méthode qui retourne l'image en Photomaton.
         /// </summary>
         public void Photomaton()
         {
-            //Taille du tableaux temporaire
+            //Tableau temporaire avec les mêmes dimensions.
             Color[,] tabTempo = new Color[this.Largeur, this.Hauteur];
-            //boucle pour le rouge
+
+            //Boucles pour le premier quadrant (rouge).
             for (int j = 0; j < this.Hauteur; j = j + 2)
             {
                 for (int i = 0; i < this.Largeur; i = i + 2)
@@ -508,7 +582,7 @@ namespace tp3
                     tabTempo[i/2, j/2] = this[i, j];
                 }
             }
-            //boucle pour le bleu
+            //Boucles pour le deuxième quadrant (bleu).
             for (int i = 1; i < this.Largeur; i = i + 2)
             {
                 for (int j = 0; j < this.Hauteur; j = j + 2)
@@ -516,7 +590,7 @@ namespace tp3
                     tabTempo[i/2 + this.Largeur/2, j/2] = this[i, j];
                 }
             }
-            //boucle pour le vert
+            //Boucles pour le troisième quadrant (vert).
             for (int j = 1; j < this.Hauteur; j = j + 2)
             {
                 for (int i = 0; i < this.Largeur; i = i + 2)
@@ -524,7 +598,7 @@ namespace tp3
                     tabTempo[i/2, j/2 + this.Hauteur/2] = this[i, j];
                 }
             }
-            //boucle pour le jaune
+            //Boucles pour le quatirème quadrant (jaune).
             for (int j = 1; j < this.Hauteur; j = j + 2)
             {
                 for (int i = 1; i < this.Largeur; i = i + 2)
@@ -532,7 +606,7 @@ namespace tp3
                     tabTempo[i/2 + this.Largeur/2, j/2 + this.Hauteur/2] = this[i, j];
                 }
             }
-            // recopie depuis la colonne de travail
+            //Affecte les pixels modifiés à l'image intial pour l'affichage.
             for (int i = 0; i < this.Largeur; i++)
             {
                 for (int j = 0; j < this.Hauteur; j++)
@@ -542,52 +616,50 @@ namespace tp3
             }
         }
 
-        #endregion
-
         #region Fleur
 
+        //Méthode qui renvoie l'image sous formes de pétales (voir site
+        //de sébastien).
         public void Fleur()
         {
             //Taille du tableaux temporaire
             Color[,] tabTempo = new Color[this.Largeur, this.Hauteur];
-            //boucle pour le rouge
+            //Boucles pour le premier quadrant (rouge).
             for (int j = 0; j < this.Hauteur; j = j + 2)
             {
                 for (int i = 0; i < this.Largeur; i = i + 2)
                 {
-                    tabTempo[i/2, j/2] = this[i, j];
+                    tabTempo[i / 2, j / 2] = this[i, j];
                 }
             }
-            //boucle pour le bleu
+            //Boucles pour le deuxième quadrant (bleu).
             for (int i = 1; i < this.Largeur; i = i + 2)
             {
                 for (int j = 0; j < this.Hauteur; j = j + 2)
                 {
-                    tabTempo[i/2 + this.Largeur/2, j/2] = this[this.Largeur - 1 - i, j];
+                    tabTempo[i / 2 + this.Largeur / 2, j / 2] = this[this.Largeur - 1 - i, j];
                 }
             }
-            //boucle pour le vert
+            //Boucles pour le troisième quadrant (vert).
             for (int j = 1; j < this.Hauteur; j = j + 2)
             {
                 for (int i = 0; i < this.Largeur; i = i + 2)
                 {
-                    tabTempo[i/2, j/2 + this.Hauteur/2] = this[i, this.Largeur - 1 - j];
+                    tabTempo[i / 2, j / 2 + this.Hauteur / 2] = this[i, this.Largeur - 1 - j];
 
                 }
             }
-            //boucle pour le jaune
+            //Boucles pour le quatrième quadrant (jaune).
             for (int j = 1; j < this.Hauteur; j = j + 2)
             {
                 for (int i = 1; i < this.Largeur; i = i + 2)
                 {
-
-                    tabTempo[i/2 + this.Largeur/2, j/2 + this.Hauteur/2] =
+                    tabTempo[i / 2 + this.Largeur / 2, j / 2 + this.Hauteur / 2] =
                         this[this.Hauteur - 1 - i, this.Largeur - 1 - j];
-
 
                 }
             }
-            // recopie depuis la colonne de travail
+            //Affecte tous les quadrants modifiés à l'image originel.
             for (int i = 0; i < this.Largeur; i++)
             {
                 for (int j = 0; j < this.Hauteur; j++)
@@ -603,7 +675,7 @@ namespace tp3
 
 
         /// <summary>
-        /// Méthode qui retourne l'image en Photomaton
+        /// Méthode qui retourne l'image en Svastika (dimensions paires et identiques).
         /// </summary>
         public void Svasitka()
         {
@@ -614,7 +686,7 @@ namespace tp3
             {
                 for (int i = 0; i < this.Largeur; i = i + 2)
                 {
-                    tabTempo[i/2, j/2] = this[i, j];
+                    tabTempo[i / 2, j / 2] = this[i, j];
                 }
             }
             //boucle pour le bleu
@@ -622,7 +694,7 @@ namespace tp3
             {
                 for (int j = 0; j < this.Hauteur; j = j + 2)
                 {
-                    tabTempo[i/2 + this.Largeur/2, j/2] = this[j, this.Largeur - 1 - i];
+                    tabTempo[i / 2 + this.Largeur / 2, j / 2] = this[j, this.Largeur - 1 - i];
                 }
             }
             //boucle pour le vert
@@ -630,7 +702,7 @@ namespace tp3
             {
                 for (int i = 0; i < this.Largeur; i = i + 2)
                 {
-                    tabTempo[i/2, j/2 + this.Hauteur/2] = this[this.Hauteur - 1 - j, i];
+                    tabTempo[i / 2, j / 2 + this.Hauteur / 2] = this[this.Hauteur - 1 - j, i];
                 }
             }
             //boucle pour le jaune
@@ -639,7 +711,7 @@ namespace tp3
                 for (int i = 1; i < this.Largeur; i = i + 2)
                 {
 
-                    tabTempo[i/2 + this.Largeur/2, j/2 + this.Hauteur/2] =
+                    tabTempo[i / 2 + this.Largeur / 2, j / 2 + this.Hauteur / 2] =
                         this[this.Hauteur - 1 - i, this.Largeur - 1 - j];
 
 
@@ -657,32 +729,6 @@ namespace tp3
 
         #endregion
 
-        #region Colone
-
-        /// <summary>
-        /// Méthode qui retourne l'image en colne
-        /// </summary>
-        public void Colone()
-        {
-            //Tablau temporaire 
-            BitmapMatricielle imgTempo = new BitmapMatricielle(new Bitmap(this.ImageBitmap));
-
-            for (int j = 0; j < this.Hauteur; j++)
-            {
-                for (int i = 0; i < this.Largeur; i = i + 2)
-                {
-                    if (i != 0)
-                        this[i, j] = imgTempo[i/2, j];
-                }
-            }
-            for (int j = 0; j < this.Hauteur; j++)
-            {
-                for (int i = 1; i < this.Largeur; i = i + 2)
-                {
-                    this[i, j] = imgTempo[((this.Largeur) + (i - 1))/2, j];
-                }
-            }
-        }
         #endregion
 
         #endregion

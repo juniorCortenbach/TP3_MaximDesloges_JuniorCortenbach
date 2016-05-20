@@ -23,7 +23,7 @@ namespace tp3
 
         private BitmapMatricielle _imageTransformee = null;
 
-        byte _iteration;
+        int _iteration;
 
         #endregion
 
@@ -93,6 +93,8 @@ namespace tp3
 
         private void chargerToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
+            //Intialisation de l'itération si une nouvelle image est chargée.
+            _iteration = 0;
 
             string cheminFichier;
             // Création de l'objet "OpenFileDialog".
@@ -127,7 +129,7 @@ namespace tp3
         {
             if (this.cmbTransformation.SelectedItem == null)
             {
-                MessageBox.Show(@"Veuillez selectionez une transformation");
+                throw new ArgumentNullException(@"Veuillez selectionez une transformation");
             }
             else
             {
@@ -137,26 +139,29 @@ namespace tp3
                 switch (transformation)
                 {
                     case TransformationType.MiroirHorizontal:
-                            this.ImageTransformee.MiroirHorizontal();
-                            this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                            this._iteration++;
-                        break;
-                    case TransformationType.MiroirVertical:
-                            this.ImageTransformee.MiroirVertical();
-                            this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                            this._iteration++;
-                        break;
-                    case TransformationType.Transposition:
-                        MessageBox.Show(@"En constructions");
-                        this._iteration++;
-                        break;
-                    case TransformationType.DecalageHorizontal:
-                        this.ImageTransformee.DecalageHorizontal();
+                        this.ImageTransformee.MiroirHorizontal();
                         this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
                         this._iteration++;
                         break;
-                    case TransformationType.DecalageVertical:
-                        this.ImageTransformee.DecalageVertical();
+                    case TransformationType.MiroirVertical:
+                        this.ImageTransformee.MiroirVertical();
+                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        this._iteration++;
+                        break;
+                    case TransformationType.Transposition:
+                        if (this.ImageTransformee.Largeur / this.ImageTransformee.Hauteur != 1)
+                        {
+                            throw new Exception("Les deux dimensions de l'image doivent avoir la même valeur.");
+                        }
+                        else
+                        {
+                            this.ImageTransformee.Transposition();
+                            this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                            this._iteration++;
+                        }
+                            break;
+                    case TransformationType.DecalageHorizontal:
+                        this.ImageTransformee.DecalageHorizontal();
                         this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
                         this._iteration++;
                         break;
@@ -166,9 +171,16 @@ namespace tp3
                         this._iteration++;
                         break;
                     case TransformationType.Colonnes:
-                        this.ImageTransformee.Colone();
-                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                        this._iteration++;
+                        if (this.ImageTransformee.Hauteur % 2 != 0 || this.ImageTransformee.Largeur % 2 != 0)
+                        {
+                            throw new Exception("Les dimensions de l'image doivent être paires.");
+                        }
+                        else
+                        {
+                            this.ImageTransformee.Colonnes();
+                            this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                            this._iteration++;
+                        }
                         break;
                     case TransformationType.Photomaton:
                         this.ImageTransformee.Photomaton();
@@ -180,25 +192,15 @@ namespace tp3
                         this._iteration++;
                         break;
                     case TransformationType.Fleur:
-                        if (this.ImageTransformee.Hauteur > this.ImageTransformee.Largeur)
-                        {
-                            MessageBox.Show(
-                                @"Les dimensions de l'image doivent être identiques pour effectuer une transformation de Svastiska",
-                                @"Erreur : Opération impossible",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else
-                        {
-                            this.ImageTransformee.Fleur();
-                            this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
-                            this._iteration++;
-                        }
+                        this.ImageTransformee.Fleur();
+                        this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
+                        this._iteration++;
                         break;
                     case TransformationType.Svastika:
                         if (this.ImageTransformee.Hauteur > this.ImageTransformee.Largeur)
                         {
                             MessageBox.Show(@"Les dimensions de l'image doivent être identiques pour effectuer une transformation de Svastiska", @"Erreur : Opération impossible",
-    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
                         {
@@ -214,6 +216,44 @@ namespace tp3
                 //Affiche le nombre d'iteration
                 this.lblIteration.Text = this._iteration.ToString();
 
+                //try
+                //{
+                //    switch (transformation)
+                //    {
+                //        case TransformationType.Transposition:
+                //            //Vérification des dimensions identiques de l'image.
+                //                this.ImageATransformerBitmap.Largeur / this.ImageATransformerBitmap.Hauteur = 1;
+                //            break;
+                //        case TransformationType.DecalageHorizontal:
+
+                //            break;
+                //        case TransformationType.DecalageEnDiagonale:
+
+                //            break;
+                //        case TransformationType.Colonnes:
+
+                //            break;
+
+                //        case TransformationType.Boulanger:
+
+                //            break;
+                //        case TransformationType.Fleur:
+
+                //            break;
+                //        case TransformationType.Svastika:
+                //            if (this.ImageTransformee.Hauteur > this.ImageTransformee.Largeur)
+                //            {
+                //                MessageBox.Show(@"Les dimensions de l'image doivent être identiques pour effectuer une transformation de Svastiska", @"Erreur : Opération impossible",
+                //                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //            }
+                //            break;
+                //        default:
+                //            MessageBox.Show(@"Une erreur s'est produite");
+                //            break;
+                //catch (Exception)
+                //{
+
+                //}
             }
 
         }
@@ -289,9 +329,6 @@ namespace tp3
                         this.pboImageTransfo.Image = this.ImageTransformee.ImageBitmap;
 
                         break;
-                    case TransformationType.DecalageVertical:
-                        //En construction
-                        break;
                     case TransformationType.DecalageEnDiagonale:
                         //En construction
                         break;
@@ -337,6 +374,11 @@ namespace tp3
         private void btnAvencer_Click(object sender, EventArgs e)
         {
             //Permet de revenir au début sans transformation 
+            this.pboImageTransfo.Image = this.pboImageIni.Image;
+        }
+
+        private void btnAvencer_Click_1(object sender, EventArgs e)
+        {
             this.pboImageTransfo.Image = this.pboImageIni.Image;
         }
     }
