@@ -58,6 +58,48 @@ namespace tp3
             get { return this._imageBitmap.Width; }
         }
 
+        /// <summary>
+        /// Indexeur qui permet d'accéder aux pixels de l'image en x (lignes) et en y (colonnes).
+        /// </summary>
+        /// <param name="lignes">Indice du sous-élément de l'élément actuel.</param>
+        /// <param name="colonnes">Indice du sous-élément du sous-élément à la position indice1</param>
+        /// <returns>Le sous-élément (String ou ElementHtml) désigné par les deux indices.</returns>
+        public Color this[int i, int j]
+        {
+            get
+            {
+                // Validation des indices à l'aide la méthode privée.
+                // Note : Si les indices sont invalides, cette méthode de validation lève une exception qui n'est pas attrapée ici
+                // et qui causera ainsi l'arrêt de l'exécution de l'accesseur.
+                // if (i < 0 || j < 0 || i > this.Largeur || j > this.Hauteur);
+                // throw new IndexOutOfRangeException("L'indice doit se trouver entre" +
+                // "0 et la taille des dimensions de l'image.");
+
+                // Retourne la valeur (pixel) désigné par les deux indices
+                // (comme si un pixel est une position sur un plan cartésien(image)).
+                return this.ImageBitmap.GetPixel(i, j);
+            }
+
+            set
+            {
+
+                // Validation des indices à l'aide la méthode privée.
+                // Note : Si les indices sont invalides, cette méthode de validation lève une exception qui n'est pas attrapée ici
+                // et qui causera ainsi l'arrêt de l'exécution de l'accesseur.
+                // if (i < 0 || j < 0 || i > this.Largeur || j > this.Hauteur) ;
+                // throw new IndexOutOfRangeException("L'indice doit se trouver entre" +
+                // "0 et la taille des dimensions de l'image.");
+
+                // Affecte la couleur désirée à la position demandée.
+                //Color couleurIndice = this.ImageBitmap.SetPixel(i, j, ImageBitmap[i,j].color);
+                // Retourne la valeur (pixel) désigné par les deux indices
+                // (comme si un pixel est une position sur un plan cartésien(image)).
+                //couleurPixelAIndice = (Color) value;
+
+                this.ImageBitmap.SetPixel(i, j, value);
+            }
+        }
+
         #endregion
 
         #region CONSTRUCTEURS
@@ -90,51 +132,6 @@ namespace tp3
         }
 
         #endregion
-
-        /// <summary>
-        /// Indexeur qui permet d'accéder aux pixels de l'image en x (lignes) et en y (colonnes).
-        /// </summary>
-        /// <param name="lignes">Indice du sous-élément de l'élément actuel.</param>
-        /// <param name="colonnes">Indice du sous-élément du sous-élément à la position indice1</param>
-        /// <returns>Le sous-élément (String ou ElementHtml) désigné par les deux indices.</returns>
-        public Color this[int i, int j]
-        {
-            get
-            {
-                // Validation des indices à l'aide la méthode privée.
-                // Note : Si les indices sont invalides, cette méthode de validation lève une exception qui n'est pas attrapée ici
-                // et qui causera ainsi l'arrêt de l'exécution de l'accesseur.
-                // ValiderIndicesIndexeur(lignes, colonnes);
-
-                // Récupération de la couleur du pixel à la position (i,j).
-                //Color couleurPixelAIndice = this.ImageBitmap.GetPixel(i, j);
-
-                // Retourne la valeur (pixel) désigné par les deux indices
-                // (comme si un pixel est une position sur un plan cartésien(image)).
-                return this.ImageBitmap.GetPixel(i, j);
-            }
-
-            set
-            {
-
-                // Validation des indices à l'aide la méthode privée.
-                // Note : Si les indices sont invalides, cette méthode de validation lève une exception qui n'est pas attrapée ici
-                // et qui causera ainsi l'arrêt de l'exécution de l'accesseur.
-                //ValiderIndicesIndexeur(indice1, indice2);
-
-                // Récupération du sous-élément (de type ElementHtml) de l'élément actuel à l'indice indice1.
-                //Color couleurPixelAIndice = this.ImageBitmap.GetPixel(i, j);
-
-                // Affecte la couleur désirée à la position demandée.
-                //Color couleurIndice = this.ImageBitmap.SetPixel(i, j, ImageBitmap[i,j].color);
-                // Retourne la valeur (pixel) désigné par les deux indices
-                // (comme si un pixel est une position sur un plan cartésien(image)).
-                //couleurPixelAIndice = (Color) value;
-
-                this.ImageBitmap.SetPixel(i, j, value);
-            }
-        }
-        // TODO : Ajouter un indexeur [i, j] pour accéder et modifier les pixels de l'image (i = y, j = x).
 
         #region MÉTHODES ET OPÉRATEURS
 
@@ -200,11 +197,9 @@ namespace tp3
             return !(imageInital == imageAComparer);
         }
 
-
-
         #endregion
 
-        #region #EFFECTS
+        #region #EFFETS
 
         #region  NiveauDeGris
 
@@ -669,9 +664,9 @@ namespace tp3
 
             //    }
             //}
-            
+
         }
-    
+
 
         #endregion
 
@@ -702,7 +697,7 @@ namespace tp3
             {
                 for (int i = 0; i < this.Largeur; i = i + 2)
                 {
-                    tabTempo[i / 2, j / 2 + this.Hauteur / 2] = this[i,this.Largeur - 1 - j];
+                    tabTempo[i / 2, j / 2 + this.Hauteur / 2] = this[i, this.Largeur - 1 - j];
 
                 }
             }
@@ -725,7 +720,7 @@ namespace tp3
                     this[i, j] = tabTempo[i, j];
                 }
             }
-    }
+        }
 
         #endregion
 
@@ -784,12 +779,11 @@ namespace tp3
                     this[i, j] = tabTempo[i, j];
                 }
             }
-         }
-        
-        #endregion
+        }
 
         #endregion
 
+        #endregion
 
         #endregion
     }
