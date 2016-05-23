@@ -71,9 +71,9 @@ namespace tp3
                 // Validation des indices à l'aide la méthode privée.
                 // Note : Si les indices sont invalides, cette méthode de validation lève une exception qui n'est pas attrapée ici
                 // et qui causera ainsi l'arrêt de l'exécution de l'accesseur.
-                // if (i < 0 || j < 0 || i > this.Largeur || j > this.Hauteur);
+                //if (i < 0 || j < 0);
                 // throw new IndexOutOfRangeException("L'indice doit se trouver entre" +
-                // "0 et la taille des dimensions de l'image.");
+                //"0 et la taille des dimensions de l'image.");
 
                 // Retourne la valeur (pixel) désigné par les deux indices
                 // (comme si un pixel est une position sur un plan cartésien(image)).
@@ -86,9 +86,9 @@ namespace tp3
                 // Validation des indices à l'aide la méthode privée.
                 // Note : Si les indices sont invalides, cette méthode de validation lève une exception qui n'est pas attrapée ici
                 // et qui causera ainsi l'arrêt de l'exécution de l'accesseur.
-                // if (i < 0 || j < 0 || i > this.Largeur || j > this.Hauteur) ;
-                // throw new IndexOutOfRangeException("L'indice doit se trouver entre" +
-                // "0 et la taille des dimensions de l'image.");
+                //if (i < 0 || j < 0);
+                //throw new IndexOutOfRangeException("L'indice doit se trouver entre" +
+                //"0 et la taille des dimensions de l'image.");
 
                 // Affecte la couleur désirée à la position demandée.
                 //Color couleurIndice = this.ImageBitmap.SetPixel(i, j, ImageBitmap[i,j].color);

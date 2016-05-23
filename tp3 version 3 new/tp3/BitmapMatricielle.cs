@@ -366,33 +366,39 @@ namespace tp3
         /// </summary>
         public void DecalageHorizontal()
         {
-            //Tablau temporaire de pixel en column
-            Color[] pixelColumn = new Color[this.Hauteur];
+            //Tableau de pixels utilisé comme tableau temporaire.
+            Color[,] tabPixels = new Color[this.Largeur, this.Hauteur];
 
             //Pour chaque colonne.
-            for (int i = 0; i < this.Largeur; i++)
+            for (int j = 0; j < this.Hauteur; j++)
             {
                 //Pour chaque rangée.
-                // Décalage des pixels dans la colonne de travail
-
-                for (int j = 0; j < this.Hauteur; j++)
+                //Décalage des pixels dans la rangée de travail.
+                for (int i = 0; i < this.Largeur; i++)
                 {
-                    if (j == 0)
+                    if (i == 0)
                     {
-                        pixelColumn[j] = this[i, this.Hauteur - 1];
+                        //Le premier pixel en largeur prend la couleur
+                        //du dernier pixel en largeur sur la même hauteur.
+                        tabPixels[i, j] = this[this.Largeur - 1, j];
                     }
                     else
                     {
-                        pixelColumn[j] = this[i, j - 1];
+                        //Le pixel lu prend la couleur du
+                        //pixel précédent en largeur sur la même hauteur.
+                        tabPixels[i, j] = this[i - 1, j];
                     }
                 }
 
-                // recopie depuis la colonne de travail
-                for (int j = 0; j < this.Hauteur; j++)
+                //Pour toute la largeur de l'image.
+                for (int i = 0; i < this.Largeur; i++)
                 {
-                    this[i, j] = pixelColumn[j];
+                    //Affectation de la colonne de pixels modifiés
+                    //à l'image.
+                    this[i, j] = tabPixels[i, j];
                 }
-            }
+            
+        }
 
         }
 

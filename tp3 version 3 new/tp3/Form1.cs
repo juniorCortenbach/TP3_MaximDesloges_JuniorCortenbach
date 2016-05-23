@@ -334,6 +334,9 @@ namespace tp3
         /// <exception cref="ArgumentNullException"></exception>
         private void btnAvancementContinue_Click(object sender, EventArgs e)
         {
+            //Intialisation du message.
+            this.lblMessage.Text = "";
+
             try
             {
                 if (this.txtDuree.Text == null)
